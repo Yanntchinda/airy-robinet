@@ -352,6 +352,16 @@
             white-space: nowrap;
         }
         .product-body .price-range i { margin-right: 4px; color: var(--theme-primary); }
+        /* ===== RÉDUCTION GLOBALE ===== */
+        .discount-badge {
+            position: absolute; top: 8px; right: 8px; z-index: 2;
+            background: #e74c3c; color: #fff; font-weight: 800; font-size: 0.7rem;
+            width: 38px; height: 38px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 2px 8px rgba(231,76,60,0.45); border: 2px solid #fff;
+        }
+        .price-discounted { color: #e74c3c; font-weight: 800; }
+        .price-original-strike { color: #95a5a6; text-decoration: line-through; font-weight: 600; font-size: 0.85em; }
         .weight-selector {
             display: flex;
             gap: 8px;
@@ -604,6 +614,50 @@
             background: none; border: 2px solid #dfe6e9; padding: 10px; border-radius: 30px; font-size: 0.9rem; font-weight: 600; color: #636e72; cursor: pointer; transition: all 0.3s;
         }
         .order-modal-cancel-btn:hover { border-color: #b2bec3; }
+        /* ===== MODALE DE CHOIX DES VARIANTES ===== */
+        .variant-modal-overlay {
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(6px); z-index: 4600; justify-content: center; align-items: center; animation: fadeIn 0.3s;
+        }
+        .variant-modal-overlay.active { display: flex; }
+        .variant-modal {
+            background: #fff; padding: 20px; border-radius: 24px; max-width: 460px; width: 92%; max-height: 88vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .variant-modal-head { display: flex; gap: 12px; align-items: center; margin-bottom: 14px; }
+        .variant-modal-img { width: 64px; height: 64px; border-radius: 12px; background: #f1f2f6; overflow: hidden; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+        .variant-modal-img img { width: 100%; height: 100%; object-fit: cover; }
+        .variant-modal-img i { font-size: 1.6rem; color: #b2bec3; }
+        .variant-modal-title { flex: 1; min-width: 0; }
+        .variant-modal-title h2 { font-size: 1.05rem; margin: 0; color: #1e272e; }
+        .variant-modal-title p { font-size: 0.75rem; color: #636e72; margin: 2px 0 0; }
+        .variant-modal-close { background: none; border: none; font-size: 1.5rem; color: #636e72; cursor: pointer; padding: 4px 8px; flex-shrink: 0; }
+        .variant-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
+        .variant-row { border: 2px solid #ecf0f1; border-radius: 14px; padding: 10px; display: flex; flex-direction: column; gap: 8px; }
+        .variant-row-top { display: flex; align-items: center; gap: 10px; }
+        .variant-row-img { width: 44px; height: 44px; border-radius: 10px; background: #f1f2f6; overflow: hidden; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+        .variant-row-img img { width: 100%; height: 100%; object-fit: cover; }
+        .variant-row-img i { color: #b2bec3; font-size: 1.1rem; }
+        .variant-row-info { flex: 1; min-width: 0; }
+        .variant-row-label { font-weight: 700; font-size: 0.85rem; color: #2d3e4f; }
+        .variant-row-price { font-size: 0.8rem; color: var(--theme-primary-dark); font-weight: 700; margin-top: 2px; }
+        .variant-row-price .price-ask { color: #e67e22; }
+        .price-choice { display: flex; gap: 8px; flex-wrap: wrap; }
+        .price-choice label { border: 2px solid #dfe6e9; border-radius: 20px; padding: 4px 10px; font-size: 0.72rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; background: #fafafa; color: #2d3e4f; }
+        .price-choice label:has(input:checked) { border-color: var(--theme-primary); background: #fef9f0; }
+        .price-choice input { accent-color: var(--theme-primary); }
+        .variant-row-bottom { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+        .var-qty-stepper { display: flex; align-items: center; gap: 10px; background: #f1f2f6; border-radius: 20px; padding: 3px 8px; }
+        .var-qty-stepper button { width: 26px; height: 26px; border-radius: 50%; border: none; background: var(--theme-primary); color: #fff; font-size: 0.8rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s, transform 0.2s; }
+        .var-qty-stepper button:hover:not(:disabled) { background: var(--theme-primary-dark); transform: scale(1.08); }
+        .var-qty-stepper button:disabled { background: #b2bec3; cursor: not-allowed; }
+        .var-qty-stepper .var-qty-value { min-width: 20px; text-align: center; font-weight: 700; font-size: 0.9rem; }
+        .variant-row-subtotal { font-size: 0.8rem; font-weight: 700; color: #1e272e; min-width: 70px; text-align: right; }
+        .variant-modal-total { display: flex; justify-content: space-between; align-items: center; padding: 10px 2px; border-top: 2px solid #1e272e; font-weight: 800; font-size: 1rem; margin-bottom: 10px; }
+        .variant-modal-total .vm-total-price { color: var(--theme-primary-dark); font-size: 1.15rem; }
+        .variant-modal-add-btn { width: 100%; background: #1e272e; color: #fff; border: none; padding: 12px; border-radius: 30px; font-size: 0.95rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s; }
+        .variant-modal-add-btn:hover:not(:disabled) { background: var(--theme-primary); transform: scale(1.02); }
+        .variant-modal-add-btn:disabled { background: #b2bec3; cursor: not-allowed; }
+        .variant-modal-cancel-btn { width: 100%; background: none; border: 2px solid #dfe6e9; padding: 9px; border-radius: 30px; font-size: 0.85rem; font-weight: 600; color: #636e72; cursor: pointer; margin-top: 8px; }
+        .variant-modal-cancel-btn:hover { border-color: #b2bec3; }
         /* ═══ Bouton remonter en haut (gauche) ═══ */
         #backToTopBtn {
             position: fixed;
@@ -835,6 +889,11 @@
             .weight-selector .weight-price { font-size: 0.55rem; }
             .add-to-cart-btn { font-size: 0.7rem; padding: 6px 8px; }
             .cart-sidebar { max-width: 100%; }
+            .variant-modal { width: 96%; max-width: 100%; max-height: 92vh; padding: 16px; }
+            .variant-modal-title h2 { font-size: 0.95rem; }
+            .variant-row-label { font-size: 0.8rem; }
+            .variant-row-price { font-size: 0.75rem; }
+            .price-choice label { font-size: 0.68rem; padding: 3px 8px; }
             .variation-item { flex-direction: column; align-items: stretch; }
             .variation-item select, .variation-item input[type="number"], .variation-item input[type="text"] { flex: 1 1 auto; }
             .variation-item .file-upload-wrapper { justify-content: center; }
@@ -1019,13 +1078,26 @@
                 <input type="text" id="productTag" placeholder="Ex: Best-seller, Bio..." />
             </div>
             <div class="form-group">
+                <label>Image du produit (partagée par TOUTES les variantes)</label>
+                <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+                    <input type="file" id="productImageInput" accept="image/*" style="flex:1;min-width:180px;" />
+                    <div id="productImagePreview" style="width:56px;height:56px;border-radius:10px;background:#f1f2f6;overflow:hidden;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                        <i class="fas fa-image" style="color:#b2bec3;"></i>
+                    </div>
+                    <button type="button" class="setting-btn" id="productImageRemoveBtn" style="background:#e74c3c;color:#fff;padding:6px 12px;display:none;"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="note" style="margin-top:6px;font-size:0.75rem;color:#7f8c8d;">
+                    <i class="fas fa-info-circle"></i> UNE image pour toute la famille (ex. VIS POSE) : elle s'affiche sur la carte, dans la modale et dans le panier. Les images par variante restent possibles et prioritaires.
+                </div>
+            </div>
+            <div class="form-group">
                 <label>Variations (type / valeur / prix / prix 2 / image)</label>
                 <div class="variations-container" id="variationsContainer">
                     <!-- dynamic -->
                 </div>
                 <button type="button" class="add-var-btn" id="addVariationBtn"><i class="fas fa-plus-circle"></i> Ajouter une variation</button>
                 <div class="note" style="margin-top:6px;font-size:0.75rem;color:#7f8c8d;">
-                    <i class="fas fa-info-circle"></i> Choisissez le type (poids ou quantité), saisissez la valeur, le prix. Importez une image. <b>Prix 2 (optionnel)</b> : renseignez-le pour afficher deux prix (ex. 3 500 - 4 000) sur une même ligne, sans ajouter de variation.
+                    <i class="fas fa-info-circle"></i> Choisissez le type (poids ou quantité), saisissez la valeur, le prix. Importez une image. <b>Libellé (optionnel)</b> : texte affiché au client à la place de la valeur (ex. « 5×50 », « 4,8×80 »). <b>Prix 2 (optionnel)</b> : le client devra choisir explicitement entre les deux prix. <b>Prix 0</b> : le produit passe en « Prix sur demande » (demande directe sur WhatsApp, jamais dans le panier).
                 </div>
             </div>
             <div>
@@ -1054,6 +1126,10 @@
                 <button class="setting-btn" id="deleteSelectedBtn" style="background:#e74c3c;color:#fff;padding:8px 14px;display:none;"><i class="fas fa-trash"></i> Supprimer la sélection (<span id="selCount">0</span>)</button>
                 <button class="setting-btn" id="hideSelectedBtn" style="background:#f1c40f;color:#1e272e;padding:8px 14px;display:none;"><i class="fas fa-eye-slash"></i> Masquer la sélection (<span id="hideSelCount">0</span>)</button>
                 <button class="setting-btn" id="showSelectedBtn" style="background:#27ae60;color:#fff;padding:8px 14px;display:none;"><i class="fas fa-eye"></i> Afficher la sélection (<span id="showSelCount">0</span>)</button>
+                <button class="setting-btn" id="deleteNoImageBtn" style="background:#e67e22;color:#fff;padding:8px 14px;" title="Envoie à la corbeille tous les produits qui n'ont aucune image (restaurable)"><i class="fas fa-image"></i> Sans image → corbeille (<span id="noImageCount">0</span>)</button>
+                <button class="setting-btn" id="purgeNoImageBtn" style="background:#c0392b;color:#fff;padding:8px 14px;" title="SUPPRESSION DÉFINITIVE de tous les produits sans image (sauvegarde JSON téléchargée avant)"><i class="fas fa-fire"></i> Sans image → suppr. déf. (<span id="noImageCount2">0</span>)</button>
+                <button class="setting-btn" id="trashToggleBtn" style="background:#636e72;color:#fff;padding:8px 14px;" title="Voir les produits supprimés (restaurables)"><i class="fas fa-trash-restore"></i> Corbeille (<span id="trashCount">0</span>)</button>
+                <button class="setting-btn" id="dedupeImagesBtn" style="background:#8e44ad;color:#fff;padding:8px 14px;" title="Si toutes les variantes d'un produit ont la même image, elle est déplacée au niveau produit et les doublons supprimés (allège le stockage)"><i class="fas fa-compress-arrows-alt"></i> Dédupliquer les images</button>
             </div>
             <div id="adminProductList">
                 <!-- Rendered by JS -->
@@ -1073,6 +1149,23 @@
                 <button class="setting-btn" id="importCatalogBtn" style="background:#27ae60;color:#fff;padding:10px 20px;"><i class="fas fa-upload"></i> Importer</button>
             </div>
             <div id="importCatalogStatus" style="margin-top:12px;font-size:0.85rem;"></div>
+        </div>
+
+        <!-- ===== GESTION DES TAGS (CATÉGORIES) ===== -->
+        <div class="admin-settings" id="tagManagerBlock" style="border:2px solid var(--theme-primary);border-radius:16px;padding:18px 20px;margin-bottom:26px;">
+            <h2><i class="fas fa-tags"></i> 🏷️ Catégories (tags)</h2>
+            <p style="font-size:0.85rem;color:#57606f;margin-bottom:12px;line-height:1.6;">
+                Structure recommandée :
+                <b>Fenêtres · Portes · Serrures · Poignées · Paumelles · Joints · Accessoires</b><br>
+                Renommez/fusionnez vos tags existants, ou laissez la boutique suggérer automatiquement
+                une catégorie selon le nom et la description de chaque produit.
+            </p>
+            <div id="tagManagerList" style="display:flex;flex-direction:column;gap:8px;"></div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;align-items:center;">
+                <button class="setting-btn" id="suggestTagsBtn" style="background:#3498db;color:#fff;padding:10px 18px;"><i class="fas fa-magic"></i> Suggérer les catégories auto</button>
+                <button class="setting-btn" id="applySuggestedTagsBtn" style="background:#27ae60;color:#fff;padding:10px 18px;display:none;"><i class="fas fa-check"></i> Appliquer les suggestions (<span id="suggestCount">0</span>)</button>
+                <span id="tagManagerStatus" style="font-size:0.82rem;color:#636e72;"></span>
+            </div>
         </div>
 
         <!-- ===== ADMIN SETTINGS ===== -->
@@ -1137,6 +1230,18 @@
                     <input type="number" id="mobilePriceFontSizeInput" step="0.01" min="0.3" max="1" value="0.55" />
                     <button class="setting-btn" id="updateMobilePriceFontBtn"><i class="fas fa-save"></i> Appliquer</button>
                     <div class="note">Taille en rem (ex: 0.55) – agit uniquement sur Android (écrans ≤ 480px).</div>
+                </div>
+
+                <!-- Réduction globale sur tous les produits -->
+                <div class="setting-item">
+                    <label><i class="fas fa-percent"></i> Réduction globale (tous les produits)</label>
+                    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+                        <input type="number" id="globalDiscountInput" min="0" max="90" step="1" placeholder="Ex: 2" style="width:110px;padding:10px 12px;border:2px solid #dfe6e9;border-radius:10px;font-size:0.9rem;outline:none;" />
+                        <button class="setting-btn" id="applyGlobalDiscountBtn" style="background:var(--theme-primary);color:#fff;"><i class="fas fa-check"></i> Appliquer la réduction</button>
+                        <button class="setting-btn" id="removeGlobalDiscountBtn" style="background:#95a5a6;color:#fff;"><i class="fas fa-times"></i> Retirer</button>
+                    </div>
+                    <div class="note">Tapez un pourcentage (ex. <b>2</b> = <b>-2%</b>) : il s'applique automatiquement à <b>tous les prix</b> de la boutique, sur toutes les variantes. Côté client : le prix remisé s'affiche <b>au-dessus</b> du prix normal <b>barré</b>, avec un badge rouge <b>« -2% »</b> en cercle sur l'image du produit (en haut à droite). Le panier et la commande WhatsApp utilisent les prix remisés.</div>
+                    <div class="note" id="globalDiscountStatus" style="font-weight:600;"></div>
                 </div>
 
                 <!-- Birthdate -->
@@ -1367,6 +1472,29 @@
         </div>
     </div>
 
+    <!-- ===== VARIANT PICKER MODAL ===== -->
+    <div class="variant-modal-overlay" id="variantModalOverlay">
+        <div class="variant-modal" id="variantModalBox">
+            <div class="variant-modal-head">
+                <div class="variant-modal-img" id="variantModalImg"><i class="fas fa-box"></i></div>
+                <div class="variant-modal-title">
+                    <h2 id="variantModalTitle">Choisir une variante</h2>
+                    <p id="variantModalSubtitle">Sélectionnez les variantes et les quantités</p>
+                </div>
+                <button class="variant-modal-close" id="variantModalCloseBtn" aria-label="Fermer">&times;</button>
+            </div>
+            <div class="variant-list" id="variantModalList"></div>
+            <div class="variant-modal-total">
+                <span>Total</span>
+                <span class="vm-total-price" id="variantModalTotal">0 FCFA</span>
+            </div>
+            <button class="variant-modal-add-btn" id="variantModalAddBtn" disabled>
+                <i class="fas fa-cart-plus"></i> Ajouter au panier
+            </button>
+            <button class="variant-modal-cancel-btn" id="variantModalCancelBtn">Annuler</button>
+        </div>
+    </div>
+
     <!-- ===== TOAST ===== -->
     <div class="toast" id="toast">
         <i class="fas fa-check-circle"></i>
@@ -1457,6 +1585,7 @@
         let productBeingMovedId = null;
         let adminProductSearchQuery = '';
         let adminProductImageFilter = 'all';
+        let adminShowTrash = false; // vue corbeille dans la liste admin
 
         // Enregistre le catalogue dans le navigateur SANS jamais échouer. Les photos en base64
         // peuvent dépasser la limite (~5 Mo) : on retente sans les photos, puis sans cache.
@@ -1626,8 +1755,9 @@
             if (stored) {
                 try {
                     cart = JSON.parse(stored);
+                    if (!Array.isArray(cart)) cart = [];
                     if (cart.length > 0) {
-                        cartIdCounter = Math.max(...cart.map(item => item.id)) + 1;
+                        cartIdCounter = Math.max(...cart.map(item => Number(item.id) || 0)) + 1;
                     } else {
                         cartIdCounter = 0;
                     }
@@ -1639,6 +1769,15 @@
                 cart = [];
                 cartIdCounter = 0;
             }
+            // Migration silencieuse : les anciens articles n'ont pas de variantIndex.
+            // On le retrouve depuis le catalogue (type + valeur, sinon libellé).
+            cart.forEach(item => {
+                const product = products.find(p => String(p.id) === String(item.productId));
+                const idx = product ? findCartVariationIndex(product, item) : -1;
+                item.variantIndex = idx; // -1 si introuvable : nettoyé à la validation de commande
+                if (item.priceChoice === undefined) item.priceChoice = 'min';
+            });
+            saveCart();
         }
         function saveCart() {
             try { localStorage.setItem('shopCart', JSON.stringify(cart)); } catch (err) { console.error(err); }
@@ -2162,6 +2301,38 @@
         function setAdminPassword(pwd) { localStorage.setItem('adminPassword', pwd); if (shopIsConfigured) saveSettingToSupabase('adminPassword', pwd); }
         function getAdminBirthdate() { return localStorage.getItem('adminBirthdate') || ''; }
         function setAdminBirthdate(date) { localStorage.setItem('adminBirthdate', date); if (shopIsConfigured) saveSettingToSupabase('adminBirthdate', date); }
+        function updateGlobalDiscountStatus(){
+            const el = document.getElementById('globalDiscountStatus');
+            const p = getGlobalDiscountPercent();
+            if (el) el.textContent = p > 0
+                ? `✅ Réduction globale active : -${p}% sur tous les prix (${products.filter(x => !isTrashed(x)).length} produit(s) concerné(s)).`
+                : 'Aucune réduction globale active.';
+            const input = document.getElementById('globalDiscountInput');
+            if (input && document.activeElement !== input) input.value = p > 0 ? String(p) : '';
+        }
+        function setGlobalDiscount(p){
+            localStorage.setItem('globalDiscountPercent', String(p));
+            if (shopIsConfigured) saveSettingToSupabase('globalDiscountPercent', String(p));
+            refreshCartPricesWithDiscount();
+            renderClientProducts();
+            renderAdminProductList();
+            updateGlobalDiscountStatus();
+        }
+        (function(){
+            const applyBtn = document.getElementById('applyGlobalDiscountBtn');
+            if (applyBtn) applyBtn.addEventListener('click', () => {
+                const raw = parseFloat(document.getElementById('globalDiscountInput').value);
+                const p = isFinite(raw) ? Math.min(90, Math.max(0, Math.round(raw))) : 0;
+                setGlobalDiscount(p);
+                showToast(p > 0 ? `🏷️ -${p}% appliqués sur tous les prix !` : 'Réduction globale retirée');
+            });
+            const removeBtn = document.getElementById('removeGlobalDiscountBtn');
+            if (removeBtn) removeBtn.addEventListener('click', () => {
+                setGlobalDiscount(0);
+                showToast('Réduction globale retirée');
+            });
+            updateGlobalDiscountStatus();
+        })();
         function getWhatsappNumber() { return localStorage.getItem('whatsappNumber') || '658656949'; }
         function setWhatsappNumber(number) { localStorage.setItem('whatsappNumber', number); updateWhatsappLink(); if (
                 supabaseConnected) saveSettingToSupabase('whatsappNumber', number); }
@@ -2816,7 +2987,7 @@
         }
         function buildProductPayload(product) {
             return { id: product.id, name: product.name, description: product.description,
-                tag: product.tag, variations: product.variations };
+                tag: product.tag, image: product.image || '', variations: product.variations };
         }
         // Envoie tout le catalogue par petits lots (au lieu d'un produit à la fois) :
         // plus rapide, et un lot qui échoue est mis en file sans bloquer les autres.
@@ -2923,7 +3094,7 @@
                 'productImageHeightDesktop', 'productImageHeightMobile', 'adminPassword', 'adminBirthdate',
                 'currencyPrimary', 'currencySecondary', 'usdFcfaRate', 'secondaryCurrencyFontSize',
                 'hiddenProducts', 'pwaIcon', 'bannerSliderInterval', 'premiumLicenseKey', 'productOrder', 'customThemeColor',
-                'aiaWorkerUrl', 'aiaGeminiKey', 'aiaGroqKey', 'aiaVoiceRate'
+                'aiaWorkerUrl', 'aiaGeminiKey', 'aiaGroqKey', 'aiaVoiceRate', 'globalDiscountPercent'
             ];
             for (const key of settingsKeys) {
                 const value = localStorage.getItem(key) || '';
@@ -2932,6 +3103,7 @@
         }
         function applyLoadedSettings() {
             updateStoreNameUI();
+            updateGlobalDiscountStatus();
             updateWhatsappLink();
             applyPwaManifest();
             renderPwaIconAdminPreview();
@@ -3075,6 +3247,90 @@
             const p = Number(v && v.price), m = Number(v && v.priceMax);
             return (isFinite(p) && isFinite(m) && m > p) ? m : null;
         }
+        // Libellé affichable d'une variante : libellé personnalisé prioritaire,
+        // sinon généré depuis le type/valeur (ex. "75g", "2 unités", "5×50").
+        function variationLabel(v) {
+            if (!v) return '';
+            if (v.label && String(v.label).trim()) return String(v.label).trim();
+            if (v.type === 'poids') return `${v.value}g`;
+            return `${v.value} unité${Number(v.value) > 1 ? 's' : ''}`;
+        }
+        // Ligne de description auto-générée à partir des variantes (ex. "5×50 | 5×60 | 6×100")
+        // → ne peut jamais différer de la liste réelle des variantes.
+        function autoVariationsDescription(product) {
+            return (product.variations || []).map(v => variationLabel(v)).join(' | ');
+        }
+        // Vrai si TOUTES les variantes sont à 0 FCFA → "Prix sur demande"
+        function isPriceOnRequest(product) {
+            const vars = product.variations || [];
+            return vars.length > 0 && vars.every(v => !(Number(v.price) > 0));
+        }
+        // Image principale d'un produit : 1re variante imagée, sinon image au niveau du
+        // produit (UNE image partagée par toutes les variantes, comme dans le JSON importé).
+        function getProductMainImage(product) {
+            const vars = (product && product.variations) || [];
+            const vImg = vars.map(v => v && v.image).find(Boolean);
+            return vImg || (product && product.image) || '';
+        }
+        // Retrouve l'index de la variante d'un article du panier (clé produit + indexVariante,
+        // avec repli sur type/valeur pour les anciens paniers).
+        function findCartVariationIndex(product, item) {
+            const vars = (product && product.variations) || [];
+            if (item.variantIndex !== undefined && item.variantIndex !== null && item.variantIndex >= 0 && vars[item.variantIndex]) {
+                return item.variantIndex;
+            }
+            let idx = vars.findIndex(v => String(v.type) === String(item.type) && String(v.value) === String(item.value));
+            if (idx === -1) idx = vars.findIndex(v => variationLabel(v) === item.label);
+            return idx;
+        }
+        // ================================================================
+        //  RÉDUCTION GLOBALE (paramètre admin, ex. 2 = -2% sur tous les prix)
+        // ================================================================
+        function getGlobalDiscountPercent(){
+            let p = parseFloat(localStorage.getItem('globalDiscountPercent') || '0');
+            if (!isFinite(p) || p < 0) p = 0;
+            if (p > 90) p = 90;
+            return p;
+        }
+        function hasGlobalDiscount(){ return getGlobalDiscountPercent() > 0; }
+        function applyGlobalDiscount(amount){
+            const p = getGlobalDiscountPercent();
+            const a = Number(amount) || 0;
+            if (p <= 0) return a;
+            return Math.max(0, Math.round(a * (100 - p) / 100));
+        }
+        // Badge rouge en cercle sur l'image du produit (en haut à droite)
+        function discountBadgeHTML(){
+            const p = getGlobalDiscountPercent();
+            return p > 0 ? `<span class="discount-badge">-${p}%</span>` : '';
+        }
+        // Prix affiché : prix remisé AU-DESSUS, prix normal BARRÉ en dessous
+        function formatPriceWithDiscountHTML(original){
+            const p = getGlobalDiscountPercent();
+            const disc = applyGlobalDiscount(original);
+            if (p <= 0) return formatPrice(original);
+            const primary = getCurrencyPrimary(), secondary = getCurrencySecondary();
+            let html = `<span class="price-discounted">${formatSingleCurrency(disc, primary)}`;
+            if (secondary && secondary !== primary) html += `<br><span class="price-secondary">${formatSingleCurrency(disc, secondary)}</span>`;
+            html += `</span><br><span class="price-original-strike">${formatSingleCurrency(Number(original) || 0, primary)}</span>`;
+            return html;
+        }
+        // Recalcule les prix du panier selon la réduction globale courante
+        function refreshCartPricesWithDiscount(){
+            let changed = false;
+            cart.forEach(item => {
+                const product = products.find(p => String(p.id) === String(item.productId));
+                if (!product || product.trashed) return;
+                const idx = findCartVariationIndex(product, item);
+                const v = idx >= 0 ? product.variations[idx] : null;
+                if (!v) return;
+                const base = (item.priceChoice === 'max' && getVariationMax(v)) ? getVariationMax(v) : (Number(v.price) || 0);
+                const np = applyGlobalDiscount(base);
+                if (np !== Number(item.price)){ item.price = np; item.originalPrice = base; changed = true; }
+                else if (item.originalPrice === undefined){ item.originalPrice = base; changed = true; }
+            });
+            if (changed){ saveCart(); updateCartUI(); }
+        }
         function formatPriceRange(min, max) {
             if (max == null || !(max > min)) return formatPrice(min);
             const primary = getCurrencyPrimary(), secondary = getCurrencySecondary();
@@ -3102,24 +3358,17 @@
             }
             return result;
         }
-        // Panier : le total est calculé sur le prix bas ; s'il y a des fourchettes, on affiche aussi le total haut.
-        function cartItemMax(item) {
-            const m = Number(item && item.priceMax);
-            return (isFinite(m) && m > Number(item.price)) ? m : Number(item.price);
-        }
-        function getCartTotalMax() { return cart.reduce((sum, item) => sum + cartItemMax(item) * item.quantity, 0); }
-        function cartHasPriceRange() { return cart.some(item => cartItemMax(item) > Number(item.price)); }
-        function cartTotalHTML() {
-            return cartHasPriceRange() ? formatPriceRange(getCartTotal(), getCartTotalMax()) : formatPrice(getCartTotal());
-        }
-        function cartTotalText() {
-            return cartHasPriceRange() ? formatPriceRangeText(getCartTotal(), getCartTotalMax()) : formatPriceText(getCartTotal());
-        }
-        // Texte de prix pour l'assistant IA
+        // Panier : chaque ligne a un prix EXACT choisi par le client.
+        // La fourchette de prix n'est JAMAIS utilisée dans le panier ni dans le total.
+        function cartTotalHTML() { return formatPrice(getCartTotal()); }
+        function cartTotalText() { return formatPriceText(getCartTotal()); }
+        // Texte de prix pour l'assistant IA (0 FCFA = prix sur demande)
         function aiaPriceText(v) {
             const f = n => Number(n || 0).toLocaleString('fr-FR');
-            const m = getVariationMax(v);
-            return m ? f(v.price) + ' - ' + f(m) : f(v && v.price);
+            if (!(Number(v && v.price) > 0)) return "prix sur demande";
+            const p = applyGlobalDiscount(v.price), m = getVariationMax(v);
+            const pm = m ? applyGlobalDiscount(m) : null;
+            return pm ? f(p) + ' - ' + f(pm) + ' (promo -' + getGlobalDiscountPercent() + '%)' : f(p) + (hasGlobalDiscount() ? ' (promo -' + getGlobalDiscountPercent() + '%)' : '');
         }
 
         // ================================================================
@@ -3232,8 +3481,8 @@
         function getFilteredProducts() {
             const query = normalizeClientText(activeClientSearch).trim();
             const filtered = getSortedProducts().filter(p => {
-                // Les produits masqués (hidden) n'apparaissent JAMAIS côté client
-                if (p.hidden) return false;
+                // Les produits masqués (hidden) ou à la corbeille (trashed) n'apparaissent JAMAIS côté client
+                if (p.hidden || p.trashed) return false;
 
                 const rawTag = (p.tag || '').trim();
                 const tagOk = !activeFilterTag ||
@@ -3300,74 +3549,85 @@
                 return;
             }
             displayedProducts.forEach((product, index) => {
-                const prices = product.variations.map(v => v.price);
+                const prices = product.variations.map(v => Number(v.price) || 0);
                 const minPrice = Math.min(...prices);
-                const maxPrice = Math.max(...product.variations.map(v => getVariationMax(v) || v.price));
+                const maxPrice = Math.max(...product.variations.map(v => getVariationMax(v) || Number(v.price) || 0));
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 card.style.animationDelay = (index * 0.08) + 's';
 
-                let varsHTML = '';
-                product.variations.forEach((v, i) => {
-                    const checked = i === 0 ? 'checked' : '';
-                    const label = v.type === 'poids' ? `${v.value}g` : `${v.value} unité${v.value > 1 ? 's' : ''}`;
-                    varsHTML += `
-                        <label>
-                            <input type="radio" name="weight_${product.id}" value="${i}" ${checked} data-price="${v.price}" data-image="${v.image || ''}" data-type="${v.type}" data-value="${v.value}" />
-                            <span class="weight-label">${label}</span>
-                            <span class="weight-price">${formatPriceRange(v.price, getVariationMax(v))}</span>
-                        </label>
-                    `;
-                });
-
-                const firstImage = product.variations[0]?.image || '';
+                const firstImage = getProductMainImage(product);
                 const imgHTML = firstImage ?
                     `<img src="${firstImage}" alt="${product.name}" loading="lazy" />` :
                     `<i class="fas fa-box" style="font-size:3rem;color:#b2bec3;"></i>`;
 
+                // Description auto-générée depuis les variantes (ne diverge jamais de la liste réelle).
+                // Le champ description manuel reste affiché en dessous, comme texte libre supplémentaire.
+                const autoDesc = autoVariationsDescription(product);
+                const freeDesc = (product.description || '').trim();
+                const descHTML = autoDesc ? `<p class="description">${autoDesc}</p>` : '';
+                const freeDescHTML = freeDesc ? `<p class="description" style="color:#7f8c8d;">${freeDesc}</p>` : '';
+
+                const onRequest = isPriceOnRequest(product);
+                const singleVariant = product.variations.length === 1;
+                const singleHasPriceChoice = singleVariant && !!getVariationMax(product.variations[0]);
+                let priceDisplay;
+                if (onRequest) {
+                    priceDisplay = `<span style="color:#e67e22;font-weight:700;">Prix sur demande</span>`;
+                } else if (hasGlobalDiscount()) {
+                    // Réduction globale : prix remisé au-dessus, prix normal barré en dessous
+                    const dMin = applyGlobalDiscount(minPrice), dMax = applyGlobalDiscount(maxPrice);
+                    const origTxt = maxPrice > minPrice
+                        ? formatSingleCurrency(minPrice, getCurrencyPrimary()) + ' - ' + formatSingleCurrency(maxPrice, getCurrencyPrimary())
+                        : formatSingleCurrency(minPrice, getCurrencyPrimary());
+                    const discTxt = dMax > dMin
+                        ? formatSingleCurrency(dMin, getCurrencyPrimary()) + ' - ' + formatSingleCurrency(dMax, getCurrencyPrimary())
+                        : formatSingleCurrency(dMin, getCurrencyPrimary());
+                    priceDisplay = `<span class="price-discounted">${discTxt}</span> <span class="price-original-strike">${origTxt}</span>`;
+                } else {
+                    priceDisplay = maxPrice > minPrice
+                        ? formatSingleCurrency(minPrice, getCurrencyPrimary()) + ' - ' + formatSingleCurrency(maxPrice, getCurrencyPrimary())
+                        : formatSingleCurrency(minPrice, getCurrencyPrimary());
+                }
+
+                const actionHTML = onRequest
+                    ? `<button class="add-to-cart-btn" data-product-id="${product.id}" style="background:#25d366;">
+                           <i class="fab fa-whatsapp"></i> Demander sur WhatsApp
+                       </button>`
+                    : `<button class="add-to-cart-btn" data-product-id="${product.id}">
+                           <i class="fas fa-plus-circle"></i> ${(!singleVariant || singleHasPriceChoice) ? 'Choisir la variante' : 'Ajouter au panier'}
+                       </button>`;
+
                 card.innerHTML = `
                     <div class="product-image" id="img_${product.id}">
                         ${imgHTML}
+                        ${discountBadgeHTML()}
                         ${product.tag ? `<span class="tag">${product.tag}</span>` : ''}
                     </div>
                     <div class="product-body">
                         <h3>${product.name}</h3>
-                        <p class="description">${product.description || ''}</p>
+                        ${descHTML}
+                        ${freeDescHTML}
                         <div class="price-range">
-                            <i class="fas fa-tag"></i> ${maxPrice > minPrice ? formatSingleCurrency(minPrice, getCurrencyPrimary()) + ' - ' + formatSingleCurrency(maxPrice, getCurrencyPrimary()) : formatSingleCurrency(minPrice, getCurrencyPrimary())}
+                            <i class="fas fa-tag"></i> ${priceDisplay}
                         </div>
-                        <div class="weight-selector" data-product-id="${product.id}">
-                            ${varsHTML}
-                        </div>
-                        <button class="add-to-cart-btn" data-product-id="${product.id}">
-                            <i class="fas fa-plus-circle"></i> Ajouter au panier
-                        </button>
+                        ${actionHTML}
                     </div>
                 `;
 
                 const addBtn = card.querySelector('.add-to-cart-btn');
                 addBtn.addEventListener('click', () => {
                     const pid = parseInt(addBtn.dataset.productId);
-                    const selected = card.querySelector(`input[name="weight_${pid}"]:checked`);
-                    if (!selected) return;
-                    const idx = parseInt(selected.value);
-                    const variation = product.variations[idx];
-                    if (!variation) return;
-                    addToCart(pid, variation.type, variation.value, variation.price, variation.image || '');
-                });
-
-                const radios = card.querySelectorAll(`input[name="weight_${product.id}"]`);
-                radios.forEach(radio => {
-                    radio.addEventListener('change', function() {
-                        const imgContainer = document.getElementById(`img_${product.id}`);
-                        const imageUrl = this.dataset.image;
-                        const tagHtml = product.tag ? `<span class="tag">${product.tag}</span>` : '';
-                        if (imageUrl) {
-                            imgContainer.innerHTML = `<img src="${imageUrl}" alt="${product.name}" />${tagHtml}`;
-                        } else {
-                            imgContainer.innerHTML = `<i class="fas fa-box" style="font-size:3rem;color:#b2bec3;"></i>${tagHtml}`;
-                        }
-                    });
+                    if (onRequest) { askPriceOnWhatsapp(pid); return; }
+                    const variations = product.variations || [];
+                    // Produit à UNE seule variante (sans prix 2) : ajout direct, comportement conservé.
+                    if (variations.length === 1 && !getVariationMax(variations[0])) {
+                        const v = variations[0];
+                        addToCart(pid, v.type, v.value, Number(v.price) || 0, v.image || '', { variantIndex: 0, qty: 1, priceChoice: 'min' });
+                        return;
+                    }
+                    // Plusieurs variantes (ou prix 2 à choisir) : la modale s'ouvre.
+                    openVariantModal(pid);
                 });
 
                 grid.appendChild(card);
@@ -3436,29 +3696,62 @@
             saveShopStats(stats);
         }
 
-        function addToCart(productId, type, value, price, image) {
-            const product = products.find(p => p.id === productId);
+        // Ouvre WhatsApp avec le nom du produit pré-rempli (produits à 0 FCFA = "Prix sur demande")
+        function askPriceOnWhatsapp(productId) {
+            const product = products.find(p => String(p.id) === String(productId));
             if (!product) return;
-            const label = type === 'poids' ? `${value}g` : `${value} unité${value > 1 ? 's' : ''}`;
-            const existing = cart.find(item => item.productId === productId && item.value === value && item.type === type);
+            const variantsTxt = autoVariationsDescription(product);
+            const msg = `Bonjour, je souhaite connaître le prix de « ${product.name} »${variantsTxt ? ` (${variantsTxt})` : ''}. Merci !`;
+            const url = `https://wa.me/${getWhatsappNumber()}?text=${encodeURIComponent(msg)}`;
+            window.open(url, '_blank');
+        }
+
+        function addToCart(productId, type, value, price, image, opts) {
+            const product = products.find(p => String(p.id) === String(productId));
+            if (!product) return;
+            opts = opts || {};
+            const productVars = product.variations || [];
+            // Index de la variante (clé unique produitId + indexVariante), avec repli type/valeur.
+            let variantIndex = (opts.variantIndex !== undefined && opts.variantIndex !== null && opts.variantIndex >= 0)
+                ? opts.variantIndex
+                : productVars.findIndex(v => String(v.type) === String(type) && String(v.value) === String(value));
+            const variation = variantIndex >= 0 ? productVars[variantIndex] : null;
+            const label = variation ? variationLabel(variation)
+                : (type === 'poids' ? `${value}g` : `${value} unité${Number(value) > 1 ? 's' : ''}`);
+            const basePrice = Number(opts.price !== undefined && opts.price !== null ? opts.price : price) || 0;
+            // Un article à 0 FCFA ne va JAMAIS dans le panier : prix sur demande uniquement.
+            if (!(basePrice > 0)) {
+                showToast(`« ${product.name} » : prix sur demande — écrivez-nous sur WhatsApp`);
+                return;
+            }
+            // Réduction globale : le panier stocke le PRIX REMISÉ (jamais la fourchette)
+            const unitPrice = applyGlobalDiscount(basePrice);
+            const qty = Math.max(1, parseInt(opts.qty, 10) || 1);
+            const priceChoice = opts.priceChoice || 'min';
+            // Même variante (même prix choisi) → on augmente la quantité, pas de doublon.
+            const existing = cart.find(item => {
+                if (String(item.productId) !== String(productId)) return false;
+                const idx = findCartVariationIndex(product, item);
+                return idx === variantIndex && Number(item.price) === unitPrice;
+            });
             if (existing) {
-                existing.quantity += 1;
-                showToast(`+1 "${product.name}" (${label}) dans le panier`);
+                existing.quantity += qty;
+                showToast(`+${qty} « ${product.name} » (${label}) dans le panier`);
             } else {
-                const sourceVariation = (product.variations || []).find(v => v.type === type && Number(v.value) === Number(value));
-                const sourceMax = Number(sourceVariation && sourceVariation.priceMax);
                 cart.push({
                     id: ++cartIdCounter,
                     productId: productId,
+                    variantIndex: variantIndex,
                     name: product.name,
-                    type: type,
-                    value: value,
+                    type: variation ? variation.type : type,
+                    value: variation ? variation.value : value,
                     label: label,
-                    price: price,
-                    ...((isFinite(sourceMax) && sourceMax > Number(price)) ? { priceMax: sourceMax } : {}),
-                    quantity: 1
+                    price: unitPrice,
+                    originalPrice: basePrice,
+                    priceChoice: priceChoice,
+                    quantity: qty
                 });
-                showToast(`"${product.name}" (${label}) ajouté !`);
+                showToast(`${qty} × « ${product.name} » (${label}) ajouté !`);
             }
             trackCartAdd(productId);
             saveCart();
@@ -3506,10 +3799,13 @@
         }
 
         function getCartItemImage(item) {
-            const product = products.find(p => p.id === item.productId);
+            const product = products.find(p => String(p.id) === String(item.productId));
             if (!product) return '';
-            const variation = product.variations.find(v => v.type === item.type && v.value === item.value);
-            return (variation && variation.image) || (product.variations[0] && product.variations[0].image) || '';
+            const vars = product.variations || [];
+            const idx = findCartVariationIndex(product, item);
+            const variation = (idx >= 0 && vars[idx]) ||
+                vars.find(v => String(v.type) === String(item.type) && String(v.value) === String(item.value));
+            return (variation && variation.image) || (vars[0] && vars[0].image) || (product && product.image) || '';
         }
 
         function removeFromCart(cartId) {
@@ -3574,10 +3870,11 @@
                     <div class="cart-item">
                         <div class="item-icon">${imgHTML}</div>
                         <div class="item-info">
-                            <div class="item-name">${item.name}</div>
+                            <div class="item-name">${item.name} – ${item.label}</div>
                             <div class="item-detail">
-                                <span class="weight-badge">${item.label}</span>
-                                <span class="price-badge">${formatPriceRange(item.price, item.priceMax)}</span>
+                                <span class="price-badge">${formatPrice(item.price)} / unité</span>
+                                ${Number(item.originalPrice) > Number(item.price) ? `<span class="price-original-strike" style="font-size:0.65rem;">${formatPrice(item.originalPrice)}</span>` : ''}
+                                <span class="weight-badge">Sous-total : ${formatPrice(item.price * item.quantity)}</span>
                             </div>
                         </div>
                         <div class="item-actions">
@@ -3619,6 +3916,144 @@
         }
 
         // ================================================================
+        //  MODALE DE CHOIX DES VARIANTES (produits multi-variantes)
+        // ================================================================
+        let variantModalState = null; // { product, quantities: number[], priceChoices: string[] }
+
+        function openVariantModal(productId) {
+            const product = products.find(p => String(p.id) === String(productId));
+            if (!product) return;
+            const vars = product.variations || [];
+            variantModalState = {
+                product: product,
+                quantities: vars.map(() => 0),
+                priceChoices: vars.map(() => 'min')
+            };
+            document.getElementById('variantModalTitle').textContent = product.name;
+            document.getElementById('variantModalSubtitle').textContent = 'Choisissez les variantes et les quantités';
+            const firstImage = getProductMainImage(product);
+            document.getElementById('variantModalImg').innerHTML = firstImage
+                ? `<img src="${firstImage}" alt="${product.name}" />`
+                : '<i class="fas fa-box"></i>';
+            renderVariantModalList();
+            document.getElementById('variantModalOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeVariantModal() {
+            document.getElementById('variantModalOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+            variantModalState = null;
+        }
+
+        function renderVariantModalList() {
+            const st = variantModalState;
+            if (!st) return;
+            const list = document.getElementById('variantModalList');
+            const vars = st.product.variations || [];
+            let html = '';
+            vars.forEach((v, i) => {
+                const label = variationLabel(v);
+                const price = Number(v.price) || 0;
+                const max = getVariationMax(v);
+                const onRequest = !(price > 0);
+                const img = v.image || st.product.image || '';
+                const imgHTML = img ? `<img src="${img}" alt="${label}" />` : '<i class="fas fa-box"></i>';
+                let priceHTML;
+                if (onRequest) {
+                    priceHTML = `<span class="price-ask">Prix sur demande</span>`;
+                } else if (max) {
+                    // "Prix 2" : le client choisit explicitement entre les deux prix (boutons radio).
+                    priceHTML = `<div class="price-choice">
+                        <label title="Prix 1"><input type="radio" name="price_${st.product.id}_${i}" value="min" ${st.priceChoices[i] === 'min' ? 'checked' : ''} /> Prix 1 : <span class="price-discounted">${formatSingleCurrency(applyGlobalDiscount(price), getCurrencyPrimary())}</span> <span class="price-original-strike">${formatSingleCurrency(price, getCurrencyPrimary())}</span></label>
+                        <label title="Prix 2"><input type="radio" name="price_${st.product.id}_${i}" value="max" ${st.priceChoices[i] === 'max' ? 'checked' : ''} /> Prix 2 : <span class="price-discounted">${formatSingleCurrency(applyGlobalDiscount(max), getCurrencyPrimary())}</span> <span class="price-original-strike">${formatSingleCurrency(max, getCurrencyPrimary())}</span></label>
+                    </div>`;
+                } else {
+                    priceHTML = formatPriceWithDiscountHTML(price);
+                }
+                const unit = applyGlobalDiscount((st.priceChoices[i] === 'max' && max) ? max : price);
+                const subtotal = st.quantities[i] * unit;
+                html += `
+                    <div class="variant-row" data-variant="${i}">
+                        <div class="variant-row-top">
+                            <div class="variant-row-img">${imgHTML}</div>
+                            <div class="variant-row-info">
+                                <div class="variant-row-label">${label}</div>
+                                <div class="variant-row-price">${priceHTML}</div>
+                            </div>
+                        </div>
+                        <div class="variant-row-bottom">
+                            <div class="var-qty-stepper">
+                                <button type="button" class="var-qty-minus" data-variant="${i}" ${onRequest || st.quantities[i] <= 0 ? 'disabled' : ''} aria-label="Réduire la quantité"><i class="fas fa-minus"></i></button>
+                                <span class="var-qty-value">${st.quantities[i]}</span>
+                                <button type="button" class="var-qty-plus" data-variant="${i}" ${onRequest ? 'disabled' : ''} aria-label="Augmenter la quantité"><i class="fas fa-plus"></i></button>
+                            </div>
+                            <span class="variant-row-subtotal">${st.quantities[i] > 0 && !onRequest ? formatSingleCurrency(subtotal, getCurrencyPrimary()) : ''}</span>
+                        </div>
+                    </div>
+                `;
+            });
+            list.innerHTML = html;
+            updateVariantModalTotal();
+            list.querySelectorAll('.var-qty-plus').forEach(btn => btn.addEventListener('click', () => {
+                const i = parseInt(btn.dataset.variant, 10);
+                st.quantities[i] += 1;
+                renderVariantModalList();
+            }));
+            list.querySelectorAll('.var-qty-minus').forEach(btn => btn.addEventListener('click', () => {
+                const i = parseInt(btn.dataset.variant, 10);
+                if (st.quantities[i] > 0) { st.quantities[i] -= 1; renderVariantModalList(); }
+            }));
+            list.querySelectorAll('.price-choice input[type="radio"]').forEach(radio => radio.addEventListener('change', () => {
+                const row = radio.closest('.variant-row');
+                const i = parseInt(row.dataset.variant, 10);
+                st.priceChoices[i] = radio.value;
+                renderVariantModalList();
+            }));
+        }
+
+        function updateVariantModalTotal() {
+            const st = variantModalState;
+            if (!st) return;
+            const vars = st.product.variations || [];
+            let total = 0, anyQty = false;
+            vars.forEach((v, i) => {
+                const q = st.quantities[i] || 0;
+                if (q > 0 && Number(v.price) > 0) {
+                    anyQty = true;
+                    const max = getVariationMax(v);
+                    const unit = applyGlobalDiscount((st.priceChoices[i] === 'max' && max) ? max : (Number(v.price) || 0));
+                    total += unit * q;
+                }
+            });
+            document.getElementById('variantModalTotal').innerHTML = formatPrice(total);
+            // Bouton "Ajouter au panier" désactivé tant qu'aucune quantité n'est > 0
+            document.getElementById('variantModalAddBtn').disabled = !anyQty;
+        }
+
+        function confirmVariantModal() {
+            const st = variantModalState;
+            if (!st) return;
+            const vars = st.product.variations || [];
+            vars.forEach((v, i) => {
+                const q = st.quantities[i] || 0;
+                if (q <= 0) return;
+                const max = getVariationMax(v);
+                const unit = (st.priceChoices[i] === 'max' && max) ? max : (Number(v.price) || 0);
+                // Plusieurs variantes du même produit peuvent être ajoutées en une seule fois.
+                addToCart(st.product.id, v.type, v.value, unit, v.image || '', { variantIndex: i, qty: q, priceChoice: st.priceChoices[i] });
+            });
+            closeVariantModal();
+        }
+
+        document.getElementById('variantModalCloseBtn').addEventListener('click', closeVariantModal);
+        document.getElementById('variantModalCancelBtn').addEventListener('click', closeVariantModal);
+        document.getElementById('variantModalAddBtn').addEventListener('click', confirmVariantModal);
+        document.getElementById('variantModalOverlay').addEventListener('click', function(e) {
+            if (e.target === this) closeVariantModal();
+        });
+
+        // ================================================================
         //  CHECKOUT (sans date/heure)
         // ================================================================
         let pendingOrderNumber = null;
@@ -3642,15 +4077,15 @@
             if (cLoc) msg += `📍 *Localisation :* ${cLoc}\n`;
             if (cAddr) msg += `🏠 *Adresse :* ${cAddr}\n`;
             msg += `━━━━━━━━━━━━━━━\n\n`;
-            cart.forEach((item, idx) => {
+            // Une ligne par variante précise, avec le prix EXACT choisi (jamais de fourchette) :
+            // • NOM (variante) × quantité = sous-total
+            cart.forEach((item) => {
                 const subtotal = item.price * item.quantity;
-                const subtotalMax = cartItemMax(item) * item.quantity;
-                msg += `${idx + 1}. *${item.name}*\n`;
-                msg += `    ${item.label}   ×${item.quantity}   →   ${formatPriceRangeText(subtotal, subtotalMax > subtotal ? subtotalMax : null)}\n\n`;
+                msg += `• ${item.name} (${item.label}) × ${item.quantity} (${formatPriceText(item.price)}/unité) = ${formatPriceText(subtotal)}\n`;
             });
-            msg += `━━━━━━━━━━━━━━━\n`;
+            msg += `\n━━━━━━━━━━━━━━━\n`;
             msg += `💰 *Total : ${cartTotalText()}*\n\n`;
-            if (cartHasPriceRange()) msg += `ℹ️ Certains articles ont un prix entre deux montants : merci de me confirmer le prix exact.\n\n`;
+            if (hasGlobalDiscount()) msg += `🏷️ *Promo -${getGlobalDiscountPercent()}% appliquée sur tous les prix.*\n\n`;
             msg += `📱 Merci de me confirmer la disponibilité et les modalités de livraison.`;
             return msg;
         }
@@ -3677,14 +4112,13 @@
             let itemsHTML = '';
             cart.forEach(item => {
                 const subtotal = item.price * item.quantity;
-                const subtotalMax = cartItemMax(item) * item.quantity;
                 itemsHTML += `
                     <div class="order-modal-item">
                         <div class="order-modal-item-info">
-                            <span class="order-modal-item-name">${item.name}</span>
-                            <span class="order-modal-item-detail">${item.label} × ${item.quantity}</span>
+                            <span class="order-modal-item-name">${item.name} – ${item.label}</span>
+                            <span class="order-modal-item-detail">Quantité : ${item.quantity} × ${formatPrice(item.price)}</span>
                         </div>
-                        <span class="order-modal-item-price">${formatPriceRange(subtotal, subtotalMax > subtotal ? subtotalMax : null)}</span>
+                        <span class="order-modal-item-price">${formatPrice(subtotal)}</span>
                     </div>
                 `;
             });
@@ -3773,26 +4207,29 @@
 
             cart.forEach(item => {
                 const product = products.find(current => String(current.id) === String(item.productId));
-                if (!product) {
+                if (!product || product.trashed) {
                     removed.push(item.name || 'Article');
                     return;
                 }
-                const variation = (product.variations || []).find(current =>
-                    String(current.type) === String(item.type) && String(current.value) === String(item.value)
-                );
+                // Variante retrouvée par index d'abord (clé produitId + indexVariante),
+                // avec repli sur type/valeur pour les anciens paniers.
+                const productVars = product.variations || [];
+                const varIndex = findCartVariationIndex(product, item);
+                const variation = varIndex >= 0 ? productVars[varIndex] : null;
                 if (!variation) {
                     removed.push(item.name || product.name || 'Article');
                     return;
                 }
 
-                const currentLabel = variation.type === 'poids'
-                    ? `${variation.value}g`
-                    : `${variation.value} unité${Number(variation.value) > 1 ? 's' : ''}`;
-                const currentPrice = Number(variation.price);
+                const currentLabel = variationLabel(variation);
+                // Prix exact attendu : le "prix 2" choisi explicitement, sinon le prix de base.
+                const varMax = getVariationMax(variation);
+                const basePrice = (item.priceChoice === 'max' && varMax) ? varMax : Number(variation.price);
+                const currentPrice = applyGlobalDiscount(basePrice);
                 if (!Number.isFinite(currentPrice) || currentPrice < 0) {
                     unavailable.push(product.name);
                     validatedCart.push({
-                        ...item, name: product.name, label: currentLabel,
+                        ...item, name: product.name, label: currentLabel, variantIndex: varIndex,
                         price: Number(item.price) || 0, type: variation.type, value: variation.value
                     });
                     return;
@@ -3814,8 +4251,10 @@
                     ...item,
                     name: product.name,
                     label: currentLabel,
+                    variantIndex: varIndex,
                     price: currentPrice,
-                    priceMax: getVariationMax(variation) || undefined,
+                    originalPrice: basePrice,
+                    priceChoice: (item.priceChoice === 'max' && varMax) ? 'max' : 'min',
                     type: variation.type,
                     value: variation.value
                 });
@@ -3932,8 +4371,11 @@
         document.getElementById('cartCloseBtn').addEventListener('click', closeCart);
         document.getElementById('cartOverlay').addEventListener('click', closeCart);
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') { closeCart(); if (document.getElementById('orderModalOverlay').classList.contains(
-                    'active')) closeOrderModal(); }
+            if (e.key === 'Escape') {
+                closeCart();
+                if (document.getElementById('variantModalOverlay').classList.contains('active')) closeVariantModal();
+                if (document.getElementById('orderModalOverlay').classList.contains('active')) closeOrderModal();
+            }
         });
 
         document.getElementById('checkoutBtn').addEventListener('click', checkout);
@@ -4063,15 +4505,53 @@
         //  lisait des variables pas encore initialisées et arrêtait tout le script.)
 
         // ================================================================
+        //  ADMIN FORM – IMAGE PRODUIT (partagée par toutes les variantes)
+        // ================================================================
+        let productImageData = '';
+        function setProductImagePreview(url){
+            const prev = document.getElementById('productImagePreview');
+            const rm = document.getElementById('productImageRemoveBtn');
+            if (!prev) return;
+            prev.innerHTML = url ? `<img src="${url}" alt="image produit" style="width:100%;height:100%;object-fit:cover;" />` : '<i class="fas fa-image" style="color:#b2bec3;"></i>';
+            if (rm) rm.style.display = url ? 'inline-block' : 'none';
+        }
+        const productImageInput = document.getElementById('productImageInput');
+        if (productImageInput){
+            productImageInput.addEventListener('change', function(){
+                const file = this.files[0];
+                if (!file) return;
+                const prev = document.getElementById('productImagePreview');
+                if (prev) prev.innerHTML = '<i class="fas fa-spinner fa-spin" style="color:#b2bec3;"></i>';
+                uploadImageOrFallback(file, 900, 0.75).then(url => {
+                    productImageData = url;
+                    setProductImagePreview(url);
+                    showToast('Image du produit importée');
+                }).catch(err => {
+                    setProductImagePreview(productImageData);
+                    showToast('Impossible de traiter cette image');
+                });
+            });
+        }
+        const productImageRemoveBtn = document.getElementById('productImageRemoveBtn');
+        if (productImageRemoveBtn){
+            productImageRemoveBtn.addEventListener('click', () => {
+                productImageData = '';
+                if (productImageInput) productImageInput.value = '';
+                setProductImagePreview('');
+            });
+        }
+
+        // ================================================================
         //  ADMIN FORM – VARIATIONS
         // ================================================================
         const variationsContainer = document.getElementById('variationsContainer');
         let fileCounter = 0;
 
-        function createVariationElement(type = 'poids', value = '', price = '', imageData = '', priceMax = '') {
+        function createVariationElement(type = 'poids', value = '', price = '', imageData = '', priceMax = '', label = '') {
             const div = document.createElement('div');
             div.className = 'variation-item';
             const uniqueId = 'file-' + (++fileCounter);
+            const labelEsc = String(label == null ? '' : label).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 
             div.innerHTML = `
                 <select class="var-type">
@@ -4079,8 +4559,9 @@
                     <option value="quantite" ${type === 'quantite' ? 'selected' : ''}>Quantité (unités)</option>
                 </select>
                 <input type="number" class="var-value" placeholder="Valeur" value="${value}" step="1" min="1" required />
+                <input type="text" class="var-label" placeholder="Libellé affiché (optionnel, ex: 5×50)" value="${labelEsc}" title="Libellé personnalisé affiché au client à la place de « 75g » / « 2 unités » (ex: 5×50, 4,8×80)" />
                 <input type="number" class="var-price" placeholder="Prix (FCFA)" value="${price}" step="1" min="0" required />
-                <input type="number" class="var-price-max" placeholder="Prix 2 (optionnel)" value="${priceMax}" step="1" min="0" title="Deuxième prix : affiche une fourchette (ex. 3500 - 4000) sans ajouter de variation" />
+                <input type="number" class="var-price-max" placeholder="Prix 2 (optionnel)" value="${priceMax}" step="1" min="0" title="Deuxième prix : le client choisit explicitement entre les deux prix, sans ajouter de variation" />
                 <div class="file-upload-wrapper">
                     <input type="file" class="file-input" id="${uniqueId}" accept="image/*" />
                     <label class="file-label" for="${uniqueId}"><i class="fas fa-upload"></i> Importer l'image</label>
@@ -4127,8 +4608,8 @@
             return div;
         }
 
-        function addVariationInput(type = 'poids', value = '', price = '', imageData = '', priceMax = '') {
-            variationsContainer.appendChild(createVariationElement(type, value, price, imageData, priceMax));
+        function addVariationInput(type = 'poids', value = '', price = '', imageData = '', priceMax = '', label = '') {
+            variationsContainer.appendChild(createVariationElement(type, value, price, imageData, priceMax, label));
         }
 
         document.getElementById('addVariationBtn').addEventListener('click', () => {
@@ -4145,9 +4626,13 @@
                 const price = parseInt(item.querySelector('.var-price').value);
                 const maxField = item.querySelector('.var-price-max');
                 const priceMax = maxField ? parseInt(maxField.value) : NaN;
+                const labelField = item.querySelector('.var-label');
+                const label = labelField ? labelField.value.trim() : '';
                 const image = item.dataset.imageData || '';
                 if (!isNaN(value) && !isNaN(price) && value > 0 && price >= 0) {
                     const variation = { type, value, price, image };
+                    // Libellé personnalisé (ex. "5×50") : prioritaire sur le libellé auto-généré.
+                    if (label) variation.label = label;
                     // Deux prix différents : le plus bas devient le prix de référence, le plus haut le « Prix 2 ».
                     if (!isNaN(priceMax) && priceMax >= 0 && priceMax !== price) {
                         variation.price = Math.min(price, priceMax);
@@ -4161,7 +4646,7 @@
 
         function setVariationsInForm(variations) {
             variationsContainer.innerHTML = '';
-            variations.forEach(v => addVariationInput(v.type, v.value, v.price, v.image || '', v.priceMax || ''));
+            variations.forEach(v => addVariationInput(v.type, v.value, v.price, v.image || '', v.priceMax || '', v.label || ''));
         }
 
         // ================================================================
@@ -4176,6 +4661,9 @@
             document.getElementById('productName').value = '';
             document.getElementById('productDesc').value = '';
             document.getElementById('productTag').value = '';
+            productImageData = '';
+            if (productImageInput) productImageInput.value = '';
+            setProductImagePreview('');
             editIdInput.value = '';
             formTitle.textContent = 'Ajouter un produit';
             submitBtn.textContent = 'Enregistrer';
@@ -4199,12 +4687,12 @@
                 if (editId) {
                     const index = products.findIndex(p => p.id === editId);
                     if (index !== -1) {
-                        products[index] = { ...products[index], name, description, tag, variations };
+                        products[index] = { ...products[index], name, description, tag, image: productImageData || '', variations };
                         changedProduct = products[index];
                     }
                 } else {
                     const newId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
-                    changedProduct = { id: newId, name, description, tag, variations };
+                    changedProduct = { id: newId, name, description, tag, image: productImageData || '', variations };
                     products.push(changedProduct);
                 }
                 persistProductsLocal();
@@ -4866,6 +5354,137 @@
             summary.textContent = `${withImage} produit(s) avec image · ${withoutImage} sans image · ${incomplete} avec images incomplètes · ${illustratedVariations}/${totalVariations} variation(s) illustrée(s)`;
         }
 
+        // ================================================================
+        //  GESTION DES TAGS (CATÉGORIES) — structure cible :
+        //  Fenêtres · Portes · Serrures · Poignées · Paumelles · Joints · Accessoires
+        // ================================================================
+        const CANONICAL_TAGS = ['Fenêtres', 'Portes', 'Serrures', 'Poignées', 'Paumelles', 'Joints', 'Accessoires'];
+        // Ordre de priorité : les tags "métier" (serrure, poignée, paumelle, joint) gagnent
+        // sur le support (fenêtre/porte) — ex. « Paumelle OF fenêtre » → Paumelles.
+        const TAG_KEYWORDS = [
+            ['Serrures',   ['serrure', 'cylindre', 'canon', 'schneider', 'vachette', 'becane', 'béquille', 'penne', 'gache', 'gâche', 'tringle', 'crémone', 'cremone']],
+            ['Poignées',   ['poignee', 'poignée', 'poign', 'bouton de porte', 'rosace', 'levier', 'manette']],
+            ['Paumelles',  ['paumelle', 'charniere', 'charnière', 'penture', 'fiche', ' gond']],
+            ['Joints',     ['joint', 'mastic', 'silicone', 'bourrelet', 'brosse', 'seuil', 'calfeutrement']],
+            ['Fenêtres',   ['fenetre', 'fenêtre', 'vitre', 'chassis', 'châssis', 'ouvrant', 'coulissant', 'baie vitrée', 'baie vitree', 'double vitrage', 'simple vitrage']],
+            ['Portes',     ['porte', 'huisserie', 'vantail', 'battant', 'cadre de porte', 'habillage']],
+            ['Accessoires', ['vis', 'cheville', 'rondelle', 'ecrou', 'écrou', 'clou', 'visserie', 'kit', 'accessoire', 'taraud', 'clip', 'support', 'butee', 'butée', 'cache', 'embout', 'rondelle', 'ecrous', 'boulon']]
+        ];
+        function normTagText(s){ return String(s || '').toLocaleLowerCase('fr-FR').normalize('NFD').replace(/[\u0300-\u036f]/g, ''); }
+        function escTag(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'); }
+        // Suggère une catégorie canonique depuis nom + description + libellés de variantes
+        function suggestTagForProduct(p){
+            const hay = normTagText([p.name, p.description, (p.variations || []).map(v => variationLabel(v)).join(' ')].join(' '));
+            for (const entry of TAG_KEYWORDS){
+                const tag = entry[0], keys = entry[1];
+                for (const k of keys){ if (hay.indexOf(k) !== -1) return tag; }
+            }
+            return 'Accessoires';
+        }
+        function getTagCounts(){
+            const counts = new Map();
+            products.forEach(p => {
+                if (isTrashed(p)) return;
+                const t = (p.tag || '').trim();
+                counts.set(t, (counts.get(t) || 0) + 1);
+            });
+            return counts;
+        }
+        let tagSuggestions = {}; // id produit -> tag suggéré
+        function renderTagManager(){
+            const box = document.getElementById('tagManagerList');
+            if (!box) return;
+            const counts = getTagCounts();
+            const tags = Array.from(counts.keys()).sort((a, b) => a.localeCompare(b, 'fr'));
+            if (!tags.length){
+                box.innerHTML = '<p style="font-size:0.82rem;color:#b2bec3;">Aucun tag pour l’instant.</p>';
+                return;
+            }
+            let html = '';
+            tags.forEach(tag => {
+                const label = tag === '' ? '(Sans catégorie)' : tag;
+                const opts = ['<option value="">— Sans catégorie —</option>']
+                    .concat(CANONICAL_TAGS.map(t => `<option value="${escTag(t)}" ${t === tag ? 'selected' : ''}>${escTag(t)}</option>`))
+                    .concat(tag !== '' && !CANONICAL_TAGS.includes(tag) ? [`<option value="${escTag(tag)}" selected>${escTag(tag)} (actuel)</option>`] : [])
+                    .join('');
+                html += `
+                    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                        <b style="min-width:140px;font-size:0.85rem;">${escTag(label)}</b>
+                        <span style="color:#7f8c8d;font-size:0.78rem;">${counts.get(tag)} produit(s)</span>
+                        <select class="tag-rename-select" data-old="${escTag(tag)}" style="padding:6px 10px;border:2px solid #dfe6e9;border-radius:10px;font-size:0.82rem;background:#fff;">${opts}</select>
+                        <button class="setting-btn tag-rename-btn" data-old="${escTag(tag)}" style="background:var(--theme-primary);color:#fff;padding:6px 12px;font-size:0.78rem;"><i class="fas fa-exchange-alt"></i> Renommer</button>
+                    </div>
+                `;
+            });
+            box.innerHTML = html;
+            box.querySelectorAll('.tag-rename-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const oldTag = btn.dataset.old;
+                    const sel = box.querySelector(`.tag-rename-select[data-old="${oldTag.replace(/"/g, '\\"')}"]`);
+                    const newTag = sel ? sel.value.trim() : '';
+                    renameTag(oldTag, newTag);
+                });
+            });
+        }
+        async function renameTag(oldTag, newTag){
+            const changed = products.filter(p => !isTrashed(p) && (p.tag || '').trim() === oldTag);
+            if (!changed.length){ showToast('Aucun produit avec ce tag'); return; }
+            if (!confirm(`Renommer le tag « ${oldTag || '(Sans catégorie)'} » en « ${newTag || '(Sans catégorie)'} » pour ${changed.length} produit(s) ?`)) return;
+            changed.forEach(p => { p.tag = newTag; });
+            persistProductsLocal();
+            renderClientProducts();
+            renderAdminProductList();
+            renderTagManager();
+            showToast(`🏷️ Tag renommé pour ${changed.length} produit(s), synchronisation...`);
+            if (typeof saveProductToSupabase === 'function'){
+                changed.forEach(async p => { try { await saveProductToSupabase(p); } catch(e){} });
+            }
+        }
+        function computeTagSuggestions(){
+            tagSuggestions = {};
+            products.forEach(p => {
+                if (isTrashed(p)) return;
+                const cur = (p.tag || '').trim();
+                if (!CANONICAL_TAGS.includes(cur)) tagSuggestions[p.id] = suggestTagForProduct(p);
+            });
+            const n = Object.keys(tagSuggestions).length;
+            const applyBtn = document.getElementById('applySuggestedTagsBtn');
+            const countEl = document.getElementById('suggestCount');
+            const status = document.getElementById('tagManagerStatus');
+            if (countEl) countEl.textContent = String(n);
+            if (applyBtn) applyBtn.style.display = n > 0 ? 'inline-block' : 'none';
+            if (status){
+                if (n === 0){ status.textContent = '✅ Tous les produits ont déjà une catégorie cible.'; }
+                else {
+                    const sample = products.filter(p => tagSuggestions[p.id]).slice(0, 5)
+                        .map(p => `« ${p.name} » → ${tagSuggestions[p.id]}`).join(' · ');
+                    status.textContent = `${n} suggestion(s), ex. : ${sample}${n > 5 ? '…' : ''}`;
+                }
+            }
+        }
+        async function applyTagSuggestions(){
+            const ids = Object.keys(tagSuggestions);
+            if (!ids.length){ showToast('Aucune suggestion à appliquer'); return; }
+            if (!confirm(`Appliquer les catégories suggérées à ${ids.length} produit(s) ?`)) return;
+            const changed = [];
+            ids.forEach(idStr => {
+                const p = products.find(pp => String(pp.id) === idStr);
+                if (p && !isTrashed(p)){ p.tag = tagSuggestions[p.id]; changed.push(p); }
+            });
+            tagSuggestions = {};
+            const applyBtn = document.getElementById('applySuggestedTagsBtn');
+            if (applyBtn) applyBtn.style.display = 'none';
+            const status = document.getElementById('tagManagerStatus');
+            if (status) status.textContent = '';
+            persistProductsLocal();
+            renderClientProducts();
+            renderAdminProductList();
+            renderTagManager();
+            showToast(`✨ ${changed.length} produit(s) reclassé(s), synchronisation...`);
+            if (typeof saveProductToSupabase === 'function'){
+                changed.forEach(async p => { try { await saveProductToSupabase(p); } catch(e){} });
+            }
+        }
         function renderAdminProductList() {
             const container = document.getElementById('adminProductList');
             const moveModeBar = document.getElementById('adminMoveModeBar');
@@ -4873,9 +5492,15 @@
             const sortedProducts = getSortedProducts();
             const query = adminProductSearchQuery.trim().toLowerCase();
             updateAdminImageCoverageSummary();
+            updateNoImageCount();
+            updateTrashCount();
+            updateTrashToggleBtn();
+            renderTagManager();
+            // Vue corbeille : produits supprimés (restaurables) ; sinon catalogue actif.
+            const pool = adminShowTrash ? sortedProducts.filter(isTrashed) : sortedProducts.filter(p => !isTrashed);
             // La recherche ne filtre plus la liste (on garde tous les produits visibles pour
             // pouvoir s'en servir comme cibles de déplacement) — elle surligne juste les résultats.
-            const displayedProducts = sortedProducts.filter(product => {
+            const displayedProducts = adminShowTrash ? pool : pool.filter(product => {
                 const status = getProductImageStatus(product);
                 if (adminProductImageFilter === 'with') return status.hasImage;
                 if (adminProductImageFilter === 'without') return !status.hasImage;
@@ -4883,17 +5508,19 @@
                 return true;
             });
             const matchingIds = query ?
-                new Set(sortedProducts.filter(p => p.name.toLowerCase().includes(query)).map(p => p.id)) : null;
+                new Set(pool.filter(p => p.name.toLowerCase().includes(query)).map(p => p.id)) : null;
 
-            if (products.length === 0) {
-                container.innerHTML = '<p style="color:#b2bec3;">Aucun produit. Ajoutez-en un !</p>';
+            if (pool.length === 0) {
+                container.innerHTML = adminShowTrash
+                    ? '<p style="color:#b2bec3;">La corbeille est vide. ✅</p>'
+                    : '<p style="color:#b2bec3;">Aucun produit. Ajoutez-en un !</p>';
                 moveModeBar.style.display = 'none';
                 return;
             }
             if (matchingIds && matchingIds.size === 0) {
                 showToast('Aucun produit ne correspond à cette recherche');
             }
-            if (products.length > 0 && displayedProducts.length === 0) {
+            if (!adminShowTrash && pool.length > 0 && displayedProducts.length === 0) {
                 container.innerHTML = '<p style="color:#b2bec3;">Aucun produit ne correspond à ce filtre d’image.</p>';
                 moveModeBar.style.display = 'none';
                 return;
@@ -4922,8 +5549,7 @@
                             : `⚠️ Images : ${imageStatus.withImage}/${imageStatus.total}`));
                 const imageStatusColor = imageStatus.hasImage && (imageStatus.productLevelImage || imageStatus.covered === imageStatus.total) ? '#27ae60' : '#e67e22';
                 const varsStr = (p.variations || []).map(v => {
-                    const label = v.type === 'poids' ? `${v.value}g` : `${v.value} unités`;
-                    return `${label} (${formatPriceRangeCompact(v.price, getVariationMax(v))})`;
+                    return `${variationLabel(v)} (${formatPriceRangeCompact(v.price, getVariationMax(v))})`;
                 }).join(' | ');
                 const isBeingMoved = p.id === productBeingMovedId;
                 const isMoveTarget = productBeingMovedId !== null && !isBeingMoved;
@@ -4931,19 +5557,24 @@
                 html += `
                     <div class="admin-product-item${isBeingMoved ? ' move-selected' : ''}${isMoveTarget ? ' move-target' : ''}${isSearchMatch ? ' search-match' : ''}${p.hidden ? ' hidden-prod' : ''}" data-id="${p.id}">
                         <div style="display:flex;align-items:center;gap:10px;">
-                            <input type="checkbox" class="admin-prod-check" data-id="${p.id}" style="width:17px;height:17px;cursor:pointer;flex-shrink:0;" title="Sélectionner pour suppression multiple" />
+                            ${adminShowTrash ? '' : `<input type="checkbox" class="admin-prod-check" data-id="${p.id}" style="width:17px;height:17px;cursor:pointer;flex-shrink:0;" title="Sélectionner pour suppression multiple" />`}
                         </div>
                         <div class="info">
-                            <span class="name">${p.name}${p.hidden ? ' <span style="background:#e74c3c;color:#fff;padding:2px 8px;border-radius:12px;font-size:0.6rem;vertical-align:middle;">CACHÉ</span>' : ''}</span>
+                            <span class="name">${p.name}${p.trashed ? ' <span style="background:#636e72;color:#fff;padding:2px 8px;border-radius:12px;font-size:0.6rem;vertical-align:middle;">🗑 CORBEILLE</span>' : ''}${p.hidden && !p.trashed ? ' <span style="background:#e74c3c;color:#fff;padding:2px 8px;border-radius:12px;font-size:0.6rem;vertical-align:middle;">CACHÉ</span>' : ''}</span>
                             <span class="vars">${varsStr}</span>
                             ${p.tag ? `<span style="background:var(--theme-primary);color:#fff;padding:2px 10px;border-radius:12px;font-size:0.65rem;">${p.tag}</span>` : ''}
                             <span title="${imageStatus.productLevelImage ? 'Image au niveau du produit' : imageStatus.withImage + ' variation(s) avec image sur ' + imageStatus.total}" style="color:${imageStatusColor};font-size:0.72rem;font-weight:700;">${imageStatusText}</span>
                         </div>
                         <div class="actions">
+                            ${adminShowTrash ? `
+                            <button class="restore-btn" data-id="${p.id}" style="background:#27ae60;color:#fff;"><i class="fas fa-undo"></i> Restaurer</button>
+                            <button class="purge-btn" data-id="${p.id}" style="background:#e74c3c;color:#fff;"><i class="fas fa-times"></i> Suppr. déf.</button>
+                            ` : `
                             <button class="move-btn" data-id="${p.id}" title="${premiumOk ? 'Déplacer ce produit' : 'Fonctionnalité premium verrouillée'}" ${premiumOk ? '' : 'disabled style="opacity:0.4;cursor:not-allowed;"'}><i class="fas fa-arrows-alt-v"></i></button>
                             <button class="hide-btn" data-id="${p.id}" style="${p.hidden ? 'background:#27ae60;color:#fff;' : 'background:#f1c40f;color:#1e272e;'}">${p.hidden ? '<i class="fas fa-eye"></i> Afficher' : '<i class="fas fa-eye-slash"></i> Masquer'}</button>
                             <button class="edit-btn" data-id="${p.id}"><i class="fas fa-edit"></i> Éditer</button>
                             <button class="delete-btn" data-id="${p.id}"><i class="fas fa-trash"></i> Supprimer</button>
+                            `}
                         </div>
                     </div>
                 `;
@@ -4982,20 +5613,22 @@
             container.querySelectorAll('.delete-btn').forEach(btn => {
                 btn.addEventListener('click', async () => {
                     const id = parseInt(btn.dataset.id);
-                    if (confirm('Supprimer ce produit ?')) {
-                        products = products.filter(p => p.id !== id);
-                        persistProductsLocal();
-                        await pruneHiddenProducts();
-                        renderAdminProductList();
-                        renderClientProducts();
-                        cart = cart.filter(item => item.productId !== id);
-                        saveCart();
-                        updateCartUI();
-                        showToast('🗑️ Produit supprimé, synchronisation en cours...');
-                        const synced = await deleteProductFromSupabase(id);
-                        showToast(synced ? '☁️ Suppression synchronisée' :
-                            '⚠️ Suppression enregistrée localement — en attente de connexion');
+                    if (confirm('Envoyer ce produit à la corbeille ?\n(Vous pourrez le restaurer ensuite)')) {
+                        await moveProductsToTrash([id]);
                     }
+                });
+            });
+            container.querySelectorAll('.restore-btn').forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    const id = parseInt(btn.dataset.id);
+                    await restoreProductsFromTrash([id]);
+                });
+            });
+            container.querySelectorAll('.purge-btn').forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    const id = parseInt(btn.dataset.id);
+                    if (!confirm('Supprimer DÉFINITIVEMENT ce produit ?\nCette action est irréversible.')) return;
+                    await hardDeleteProducts([id]);
                 });
             });
             container.querySelectorAll('.move-btn').forEach(btn => {
@@ -5061,6 +5694,8 @@
             document.getElementById('productName').value = product.name;
             document.getElementById('productDesc').value = product.description || '';
             document.getElementById('productTag').value = product.tag || '';
+            productImageData = product.image || '';
+            setProductImagePreview(productImageData);
             editIdInput.value = id;
             formTitle.textContent = 'Modifier le produit';
             submitBtn.textContent = 'Mettre à jour';
@@ -5512,7 +6147,7 @@
             const nom = it.name || it.nom || 'Produit';
             const desc = it.description || it.desc || '';
             const tag = it.tag || it.cat || it.categorie || '';
-            let img = it.image || (it.variations && it.variations[0] && it.variations[0].image) || '';
+            let img = it.image || (Array.isArray(it.images) && it.images[0]) || (it.variations && it.variations[0] && it.variations[0].image) || '';
             // Une image par chemin relatif (images/p01_01.jpeg) ne peut pas être
             // chargée par la boutique (pas de dossier images/ en ligne) → on la vide
             // pour éviter les images cassées. Les images base64 (data:) passent.
@@ -5524,17 +6159,31 @@
             if (it.variations && Array.isArray(it.variations) && it.variations.length){
                 variations = it.variations.map(function(v){
                     const vp = Number(v.price) || 0, vm = Number(v.priceMax) || 0;
-                    const out = { type: v.type || 'unité', value: (v.value != null) ? v.value : 1, price: vp, image: v.image || '' };
+                    let vImg = v.image || '';
+                    if (vImg && vImg.indexOf("data:") !== 0 && vImg.indexOf("http") !== 0 && vImg.indexOf("blob:") !== 0) vImg = '';
+                    const out = { type: v.type || 'unité', value: (v.value != null) ? v.value : 1, price: vp, image: vImg };
                     if (vm > vp) out.priceMax = vm;
+                    if (v.label && String(v.label).trim()) out.label = String(v.label).trim(); // libellé personnalisé (ex. "5×50")
                     return out;
                 });
+                // DÉDOUBLONNAGE : si le JSON a UNE image produit, elle est partagée par toutes
+                // les variantes → gardée au niveau produit, images identiques des variantes supprimées.
+                if (img){
+                    variations.forEach(function(v){ if (v.image === img) v.image = ''; });
+                } else {
+                    // sinon, si toutes les variantes ont la même image → on la remonte au produit
+                    const imgs = variations.map(v => v.image).filter(Boolean);
+                    if (Array.from(new Set(imgs)).length === 1 && imgs.length){ img = imgs[0]; variations.forEach(v => { v.image = ''; }); }
+                }
             } else {
                 const prixMax = Number(it.prixMax != null ? it.prixMax : (it.prix_max != null ? it.prix_max : (it.priceMax != null ? it.priceMax : 0))) || 0;
                 const single = { type: 'unité', value: 1, price: prix, image: img };
                 if (prixMax > prix) single.priceMax = prixMax;
                 variations = [single];
             }
-            return { name: nom, description: desc, tag: tag, variations: variations, ref: it.ref || '' };
+            const out = { name: nom, description: desc, tag: tag, variations: variations, ref: it.ref || '' };
+            if (img) out.image = img; // image partagée par toutes les variantes du produit
+            return out;
         }
         // Parser le tableau du PDF par colonnes (fallback si pas d'annexe @P@)
         function parsePdfTable(text){
@@ -5656,26 +6305,166 @@
                 });
             }
         }
-        function deleteSelectedProducts(){
-            const ids = getSelectedIds();
-            if (!ids.length){ showToast('Aucun produit sélectionné'); return; }
-            if (!confirm(`Supprimer ${ids.length} produit(s) sélectionné(s) ?`)) return;
-            if (!confirm(`Dernière confirmation : supprimer définitivement ${ids.length} produit(s) ?`)) return;
-            // Suppression locale
-            products = products.filter(p => !ids.includes(p.id));
+        // ================================================================
+        //  DÉDOUBLONNAGE DES IMAGES : une image identique sur toutes les
+        //  variantes d'un produit est remontée au niveau produit et les
+        //  copies par variante sont supprimées (allège localStorage/base).
+        // ================================================================
+        async function dedupeProductImages(){
+            let count = 0;
+            const changed = [];
+            products.forEach(p => {
+                if (isTrashed(p)) return;
+                const vars = p.variations || [];
+                const imgs = vars.map(v => (v && v.image) || '').filter(Boolean);
+                if (!imgs.length) return;
+                const unique = Array.from(new Set(imgs));
+                if (unique.length === 1){
+                    // toutes les variantes partagent la même image → une seule image suffit
+                    if (!p.image) p.image = unique[0];
+                    let cleared = false;
+                    vars.forEach(v => { if (v.image){ v.image = ''; cleared = true; } });
+                    if (cleared){ count++; changed.push(p); }
+                } else if (p.image && unique.every(i => i === p.image)){
+                    // l'image produit existe déjà : on supprime les doublons sur les variantes
+                    vars.forEach(v => { if (v.image === p.image) v.image = ''; });
+                    count++; changed.push(p);
+                }
+            });
+            if (!count){ showToast('✅ Aucune image en double'); return; }
+            if (!confirm(`Dédupliquer les images de ${count} produit(s) ?\n(Une seule image par produit sera conservée, au niveau du produit.)`)) return;
+            persistProductsLocal();
+            renderClientProducts();
+            renderAdminProductList();
+            showToast(`🧹 Images dédupliquées pour ${count} produit(s), synchronisation...`);
+            if (typeof saveProductToSupabase === 'function'){
+                changed.forEach(async p => { try { await saveProductToSupabase(p); } catch(e){} });
+            }
+        }
+        // ================================================================
+        //  CORBEILLE (suppression réversible des produits)
+        // ================================================================
+        function isTrashed(p){ return !!(p && p.trashed === true); }
+        function getTrashProducts(){ return products.filter(isTrashed); }
+        function updateTrashCount(){
+            const el = document.getElementById('trashCount');
+            if (el) el.textContent = String(getTrashProducts().length);
+        }
+        function updateTrashToggleBtn(){
+            const btn = document.getElementById('trashToggleBtn');
+            if (btn) btn.innerHTML = adminShowTrash
+                ? '<i class="fas fa-box-open"></i> Retour au catalogue (<span id="trashCount">' + getTrashProducts().length + '</span>)'
+                : '<i class="fas fa-trash-restore"></i> Corbeille (<span id="trashCount">' + getTrashProducts().length + '</span>)';
+        }
+        // Sauvegarde JSON téléchargeable avant toute suppression en masse (récupération possible)
+        function downloadProductsBackup(list, name){
+            try {
+                const blob = new Blob([JSON.stringify(list, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = name;
+                document.body.appendChild(a);
+                a.click();
+                setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 800);
+                return true;
+            } catch(e) { console.warn('Sauvegarde JSON impossible :', e); return false; }
+        }
+        // Envoie à la corbeille : la ligne RESTE en base (upsert avec trashed=true),
+        // le produit disparaît du client, du panier et de l'assistant.
+        async function moveProductsToTrash(ids){
+            if (!ids || !ids.length) return;
+            const moved = products.filter(p => ids.includes(p.id) && !isTrashed(p));
+            if (!moved.length){ showToast('Aucun produit à déplacer'); return; }
+            downloadProductsBackup(moved, 'sauvegarde-produits-' + new Date().toISOString().slice(0,10) + '.json');
+            moved.forEach(p => { p.trashed = true; p.trashedAt = Date.now(); });
             persistProductsLocal();
             cart = cart.filter(item => !ids.includes(item.productId));
             saveCart();
             updateCartUI();
             renderClientProducts();
             renderAdminProductList();
-            showToast(`🗑️ ${ids.length} produit(s) supprimé(s), synchronisation...`);
-            // Suppression Supabase (async, best-effort)
+            updateSelCount();
+            showToast(`🗑️ ${moved.length} produit(s) envoyé(s) à la corbeille (+ sauvegarde JSON téléchargée)`);
+            if (typeof saveProductToSupabase === 'function'){
+                moved.forEach(async p => {
+                    try { await saveProductToSupabase(p); } catch(e){}
+                });
+            }
+        }
+        // Restaure des produits de la corbeille
+        async function restoreProductsFromTrash(ids){
+            if (!ids || !ids.length) return;
+            const restored = products.filter(p => ids.includes(p.id) && isTrashed(p));
+            if (!restored.length){ showToast('Aucun produit à restaurer'); return; }
+            restored.forEach(p => { delete p.trashed; delete p.trashedAt; });
+            persistProductsLocal();
+            renderClientProducts();
+            renderAdminProductList();
+            showToast(`♻️ ${restored.length} produit(s) restauré(s) !`);
+            if (typeof saveProductToSupabase === 'function'){
+                restored.forEach(async p => {
+                    try { await saveProductToSupabase(p); } catch(e){}
+                });
+            }
+        }
+        // Suppression DÉFINITIVE (uniquement depuis la corbeille) : local + base
+        async function hardDeleteProducts(ids){
+            if (!ids || !ids.length) return;
+            products = products.filter(p => !ids.includes(p.id));
+            persistProductsLocal();
+            await pruneHiddenProducts();
+            renderAdminProductList();
+            renderClientProducts();
+            cart = cart.filter(item => !ids.includes(item.productId));
+            saveCart();
+            updateCartUI();
+            showToast(`🗑️ ${ids.length} produit(s) supprimé(s) définitivement, synchronisation...`);
             if (typeof deleteProductFromSupabase === 'function'){
                 ids.forEach(async id => {
                     try { await deleteProductFromSupabase(id); } catch(e){}
                 });
             }
+        }
+        function deleteSelectedProducts(){
+            const ids = getSelectedIds();
+            if (!ids.length){ showToast('Aucun produit sélectionné'); return; }
+            if (adminShowTrash){
+                // Vue corbeille : suppression DÉFINITIVE des produits sélectionnés
+                if (!confirm(`Supprimer DÉFINITIVEMENT ${ids.length} produit(s) de la corbeille ?\nIrréversible.`)) return;
+                hardDeleteProducts(ids);
+                return;
+            }
+            if (!confirm(`Envoyer ${ids.length} produit(s) sélectionné(s) à la corbeille ?\n(Restaurables ensuite, + sauvegarde JSON)`)) return;
+            moveProductsToTrash(ids);
+        }
+        // Produits sans AUCUNE image (ni au niveau produit, ni sur une variante)
+        function getProductsWithoutImages(){
+            return products.filter(p => !getProductImageStatus(p).hasImage);
+        }
+        function updateNoImageCount(){
+            const n = String(getProductsWithoutImages().length);
+            const el = document.getElementById('noImageCount');
+            if (el) el.textContent = n;
+            const el2 = document.getElementById('noImageCount2');
+            if (el2) el2.textContent = n;
+        }
+        // SUPPRESSION DÉFINITIVE des produits sans image (sauvegarde JSON téléchargée avant)
+        async function purgeProductsWithoutImages(){
+            const list = getProductsWithoutImages().filter(p => !isTrashed(p));
+            const ids = list.map(p => p.id);
+            if (!ids.length){ showToast('✅ Aucun produit sans image'); return; }
+            if (!confirm(`⚠️ SUPPRESSION DÉFINITIVE de ${ids.length} produit(s) sans image ?\n\n${list.slice(0,10).map(p => '• ' + p.name).join('\n')}${ids.length > 10 ? '\n…' : ''}\n\n💾 Une sauvegarde JSON sera téléchargée AVANT la suppression.`)) return;
+            if (!confirm(`Dernière confirmation : ces ${ids.length} produit(s) seront supprimés de la boutique ET de la base de données. Continuer ?`)) return;
+            downloadProductsBackup(list, 'sauvegarde-avant-suppression-' + new Date().toISOString().slice(0,10) + '.json');
+            await hardDeleteProducts(ids);
+        }
+        async function deleteProductsWithoutImages(){
+            const list = getProductsWithoutImages().filter(p => !isTrashed(p));
+            const ids = list.map(p => p.id);
+            if (!ids.length){ showToast('✅ Aucun produit sans image'); return; }
+            if (!confirm(`Envoyer à la corbeille les ${ids.length} produit(s) sans aucune image ?\n\n${list.slice(0,10).map(p => '• ' + p.name).join('\n')}${ids.length > 10 ? '\n…' : ''}\n\n✅ Restaurables dans « Corbeille » + sauvegarde JSON téléchargée`)) return;
+            await moveProductsToTrash(ids);
         }
         function selectAllProducts(){
             const checks = document.querySelectorAll('.admin-prod-check');
@@ -5696,6 +6485,24 @@
             const b4 = document.getElementById('showSelectedBtn');
             if (b3) b3.addEventListener('click', () => toggleMultipleHidden(true));
             if (b4) b4.addEventListener('click', () => toggleMultipleHidden(false));
+            const b5 = document.getElementById('deleteNoImageBtn');
+            if (b5) b5.addEventListener('click', deleteProductsWithoutImages);
+            const b7 = document.getElementById('purgeNoImageBtn');
+            if (b7) b7.addEventListener('click', purgeProductsWithoutImages);
+            const b8 = document.getElementById('suggestTagsBtn');
+            if (b8) b8.addEventListener('click', computeTagSuggestions);
+            const b9 = document.getElementById('applySuggestedTagsBtn');
+            if (b9) b9.addEventListener('click', applyTagSuggestions);
+            const b10 = document.getElementById('dedupeImagesBtn');
+            if (b10) b10.addEventListener('click', dedupeProductImages);
+            renderTagManager();
+            const b6 = document.getElementById('trashToggleBtn');
+            if (b6) b6.addEventListener('click', () => {
+                adminShowTrash = !adminShowTrash;
+                renderAdminProductList();
+            });
+            updateNoImageCount();
+            updateTrashCount();
         });
 
         // ================================================================
@@ -5893,13 +6700,16 @@
         if (Array.isArray(p) && p.length){
           // ⚠️ Exclut les produits masqués côté admin (hidden=true)
           // → l'IA et la commande guidée ne les proposent JAMAIS au client
-          return p.filter(function(x){ return !x.hidden; });
+          return p.filter(function(x){ return !x.hidden && !x.trashed; });
         }
       }
     } catch(e){}
     return null; // catalogue absent → l'assistant gère
   }
   function varLabel(v){
+    // Délègue au moteur principal (libellé personnalisé prioritaire, ex. "5×50"),
+    // pour que l'assistant cite exactement les mêmes variantes que la boutique.
+    if (typeof variationLabel === "function") return variationLabel(v);
     return v.type === "poids" ? (v.value + "g") : (v.value + " unité" + (v.value > 1 ? "s" : ""));
   }
   /* Catalogue LÉGER pour le prompt : noms + catégories + variantes + prix.
@@ -5950,9 +6760,10 @@
     if (cat.length > 12000) cat = cat.slice(0, 12000) + "\n…(catalogue complet disponible dans la boutique)";
     var tags = catalogTags();
     var wa = "https://wa.me/" + getWhatsapp();
+    var promoTxt = (typeof hasGlobalDiscount === "function" && hasGlobalDiscount()) ? "\n\nPROMO EN COURS : -" + getGlobalDiscountPercent() + "% sur TOUS les prix (prix affiché = prix catalogue remisé)." : "";
     var bn = CFG.botName || "Anne";
     var tagsTxt = tags.length ? tags.join(", ") : "aucune";
-    return "Tu es « " + bn + " », l'assistante virtuelle de la boutique « " + getStoreName() + " » au Cameroun (prix en FCFA). VOUVOIEMENT OBLIGATOIRE : « vous », JAMAIS « tu ». Réponds de façon CONCISE (max 80 mots). AUCUN emoji ni symbole décoratif." + "\n\n" + "CATALOGUE (nom [catégorie] — variante = prix) :" + "\n" + cat + "\n\n" + "CATÉGORIES : " + tagsTxt + "\n\n" + "RÈGLES STRICTES :" + "\n" + "0. IMPORTANT — dès que le client exprime le souhait de COMMANDER (ex : « je veux commander », « commande », « acheter »…), redirige-le TOUJOURS vers le mode guidé : réponds simplement « Cliquez sur le bouton Passer une commande en bas du chat pour commencer, c'est rapide et simple. » Ne fais PAS le parcours de commande toi-même dans la conversation : le bouton guidé s'occupe de tout." + "\n" + "1. Si le client répond par un SIMPLE NOMBRE (ex : « 3 »), interprète-le comme la QUANTITÉ de l'article en cours de commande et continue le parcours (ex : « Parfait, 3 unités de [produit]. Quel est votre nom complet ? »). Ne dis JAMAIS « je n'ai pas compris » pour un nombre." + "\n" + "2. Si le client répond par le NOM d'une catégorie : liste les produits de CETTE catégorie (noms + variantes + prix), chaque produit sur sa propre ligne, entre [[SILENT]] et [[/SILENT]] (affiché mais pas lu à voix haute). Termine par : « Entrez le nom de l'article que vous souhaitez commander. »" + "\n" + "3. Si le client donne un produit : cite ses variantes avec prix (ex : « Chivas : 1g à 1500 FCFA, 2g à 2500 FCFA ») et demande « Combien de grammes (ou unités) souhaitez-vous obtenir ? ». Ne demande JAMAIS au client d'inventer un poids : les poids existent sur la plateforme." + "\n" + "4. Collecte ensuite UNE question à la fois : (a) quantité, (b) nom complet, (c) téléphone." + "\n" + "5. Calcule le total = prix × quantité." + "\n" + "6. Récapitule en une phrase (produit, variante, quantité, prix unitaire, total) et demande confirmation." + "\n" + "7. Quand le client CONFIRME : remplis le JSON « order » { name, phone, items:[{product (nom EXACT du catalogue), variation (label exact), qty}], total } et dans « reply » mets UNIQUEMENT : « Nous vous remercions pour votre commande. Cliquez sur le bouton vert Envoyer sur WhatsApp pour la valider. » JAMAIS de JSON dans « reply »." + "\n" + "8. Après la commande : « Souhaitez-vous ajouter un autre article ? » Si oui, propose à nouveau les catégories. Si non, remercie et termine." + "\n" + "9. Hors sujet : reviens vers la boutique. Ne JAMAIS inventer produit, variante ou prix. Refuse poliment toute demande illégale." + "\n" + "Contact WhatsApp : " + wa + "\n\n" + "FORMAT DE SORTIE (OBLIGATOIRE) : ta réponse DOIT être UNIQUEMENT un objet JSON valide, sans texte autour, au format : {\"reply\": \"ton message au client, sans JSON ni emoji\", \"order\": {\"name\": \"nom ou vide\", \"phone\": \"téléphone ou vide\", \"items\": [{\"product\": \"nom exact\", \"variation\": \"label exact\", \"qty\": N}], \"total\": montant} }. Si la commande n'est pas encore confirmée, mets \"order\": null. Réponds UNIQUEMENT ce JSON, rien d'autre.";
+    return "Tu es « " + bn + " », l'assistante virtuelle de la boutique « " + getStoreName() + " » au Cameroun (prix en FCFA). VOUVOIEMENT OBLIGATOIRE : « vous », JAMAIS « tu ». Réponds de façon CONCISE (max 80 mots). AUCUN emoji ni symbole décoratif." + "\n\n" + "CATALOGUE (nom [catégorie] — variante = prix) :" + "\n" + cat + promoTxt + "\n\n" + "CATÉGORIES : " + tagsTxt + "\n\n" + "RÈGLES STRICTES :" + "\n" + "0. IMPORTANT — dès que le client exprime le souhait de COMMANDER (ex : « je veux commander », « commande », « acheter »…), redirige-le TOUJOURS vers le mode guidé : réponds simplement « Cliquez sur le bouton Passer une commande en bas du chat pour commencer, c'est rapide et simple. » Ne fais PAS le parcours de commande toi-même dans la conversation : le bouton guidé s'occupe de tout." + "\n" + "1. Si le client répond par un SIMPLE NOMBRE (ex : « 3 »), interprète-le comme la QUANTITÉ de l'article en cours de commande et continue le parcours (ex : « Parfait, 3 unités de [produit]. Quel est votre nom complet ? »). Ne dis JAMAIS « je n'ai pas compris » pour un nombre." + "\n" + "2. Si le client répond par le NOM d'une catégorie : liste les produits de CETTE catégorie (noms + variantes + prix), chaque produit sur sa propre ligne, entre [[SILENT]] et [[/SILENT]] (affiché mais pas lu à voix haute). Termine par : « Entrez le nom de l'article que vous souhaitez commander. »" + "\n" + "3. Si le client donne un produit : cite ses variantes avec prix (ex : « Chivas : 1g à 1500 FCFA, 2g à 2500 FCFA ») et demande « Combien de grammes (ou unités) souhaitez-vous obtenir ? ». Ne demande JAMAIS au client d'inventer un poids : les poids existent sur la plateforme." + "\n" + "4. Collecte ensuite UNE question à la fois : (a) quantité, (b) nom complet, (c) téléphone." + "\n" + "5. Calcule le total = prix × quantité." + "\n" + "6. Récapitule en une phrase (produit, variante, quantité, prix unitaire, total) et demande confirmation." + "\n" + "7. Quand le client CONFIRME : remplis le JSON « order » { name, phone, items:[{product (nom EXACT du catalogue), variation (label exact), qty}], total } et dans « reply » mets UNIQUEMENT : « Nous vous remercions pour votre commande. Cliquez sur le bouton vert Envoyer sur WhatsApp pour la valider. » JAMAIS de JSON dans « reply »." + "\n" + "8. Après la commande : « Souhaitez-vous ajouter un autre article ? » Si oui, propose à nouveau les catégories. Si non, remercie et termine." + "\n" + "9. Hors sujet : reviens vers la boutique. Ne JAMAIS inventer produit, variante ou prix. Refuse poliment toute demande illégale." + "\n" + "Contact WhatsApp : " + wa + "\n\n" + "FORMAT DE SORTIE (OBLIGATOIRE) : ta réponse DOIT être UNIQUEMENT un objet JSON valide, sans texte autour, au format : {\"reply\": \"ton message au client, sans JSON ni emoji\", \"order\": {\"name\": \"nom ou vide\", \"phone\": \"téléphone ou vide\", \"items\": [{\"product\": \"nom exact\", \"variation\": \"label exact\", \"qty\": N}], \"total\": montant} }. Si la commande n'est pas encore confirmée, mets \"order\": null. Réponds UNIQUEMENT ce JSON, rien d'autre.";
   }
   /* ═══════════ MODE COMMANDE GUIDÉE (SANS IA — 0 requête) ═══════════
      Le client commande par BOUTONS : catégorie → produit → quantité →
@@ -6076,7 +6887,7 @@
     // Ajoute l'article courant à la liste de la commande
     GUIDED.pending = null;
     setGuidedQuantityInputMode(false);
-    GUIDED.items.push({ product: GUIDED.prod.name, variation: varLabel(GUIDED.vari), qty: GUIDED.qty, _price: GUIDED.vari.price });
+    GUIDED.items.push({ product: GUIDED.prod.name, variation: varLabel(GUIDED.vari), qty: GUIDED.qty, _price: (typeof applyGlobalDiscount === 'function' ? applyGlobalDiscount(GUIDED.vari.price) : GUIDED.vari.price) });
     GUIDED.step = "more";
     var n = GUIDED.items.length;
     addMsg("bot", "Souhaitez-vous ajouter d'autres articles ?", "maintenant");
@@ -6737,7 +7548,7 @@
     if (o.loc) lines.push("📍 Localisation : " + o.loc);
     lines.push("");
     (o.items||[]).forEach(function(it){
-      var lu = lookup(it.product, it.variation), price = lu ? lu.v.price : 0;
+      var lu = lookup(it.product, it.variation), price = lu ? (typeof applyGlobalDiscount === 'function' ? applyGlobalDiscount(lu.v.price) : lu.v.price) : 0;
       lines.push("• " + it.product + " (" + (it.variation||"") + ") × " + (it.qty||1) + " = " + fmt(price*(it.qty||1)) + " FCFA");
     });
     lines.push("");
