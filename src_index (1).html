@@ -3590,10 +3590,11 @@
                         ? formatSingleCurrency(dMin, getCurrencyPrimary()) + ' - ' + formatSingleCurrency(dMax, getCurrencyPrimary())
                         : formatSingleCurrency(dMin, getCurrencyPrimary());
                     if (maxPrice > minPrice) {
-                        // Produit AVEC variantes : ligne du dessous ALIGNÉE, chaque prix barré par son propre trait
+                        // Produit AVEC variantes : ligne du dessous ALIGNÉE sous la 1re ligne
+                        // (espace réservé à la place de l'icône tag), chaque prix barré par son propre trait
                         const cur = getCurrencyPrimary();
                         priceDisplay = `<span class="price-line"><span class="price-discounted">${formatSingleCurrency(dMin, cur)}</span> - <span class="price-discounted">${formatSingleCurrency(dMax, cur)}</span></span><br>` +
-                            `<span class="price-line"><span class="price-original-strike">${formatSingleCurrency(minPrice, cur)}</span> - <span class="price-original-strike">${formatSingleCurrency(maxPrice, cur)}</span></span>`;
+                            `<i class="fas fa-tag" style="visibility:hidden;"></i><span class="price-line"><span class="price-original-strike">${formatSingleCurrency(minPrice, cur)}</span> - <span class="price-original-strike">${formatSingleCurrency(maxPrice, cur)}</span></span>`;
                     } else {
                         // Produit UNIQUE (sans variante) : prix barré sur la MÊME ligne, séparé par un tiret
                         priceDisplay = `<span class="price-discounted">${discTxt}</span> - <span class="price-original-strike">${origTxt}</span>`;
