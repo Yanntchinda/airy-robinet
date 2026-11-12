@@ -3575,7 +3575,7 @@
                 if (onRequest) {
                     priceDisplay = `<span style="color:#e67e22;font-weight:700;">Prix sur demande</span>`;
                 } else if (hasGlobalDiscount()) {
-                    // Réduction globale : prix remisé au-dessus, prix normal barré en dessous
+                    // Réduction globale : prix remisé affiché, prix normal barré
                     const dMin = applyGlobalDiscount(minPrice), dMax = applyGlobalDiscount(maxPrice);
                     const origTxt = maxPrice > minPrice
                         ? formatSingleCurrency(minPrice, getCurrencyPrimary()) + ' - ' + formatSingleCurrency(maxPrice, getCurrencyPrimary())
@@ -3583,7 +3583,13 @@
                     const discTxt = dMax > dMin
                         ? formatSingleCurrency(dMin, getCurrencyPrimary()) + ' - ' + formatSingleCurrency(dMax, getCurrencyPrimary())
                         : formatSingleCurrency(dMin, getCurrencyPrimary());
-                    priceDisplay = `<span class="price-discounted">${discTxt}</span> <span class="price-original-strike">${origTxt}</span>`;
+                    if (maxPrice > minPrice) {
+                        // Produit AVEC variantes : prix barré EN DESSOUS du prix remisé
+                        priceDisplay = `<span class="price-discounted">${discTxt}</span><br><span class="price-original-strike">${origTxt}</span>`;
+                    } else {
+                        // Produit UNIQUE (sans variante) : prix barré sur la MÊME ligne, séparé par un tiret
+                        priceDisplay = `<span class="price-discounted">${discTxt}</span> - <span class="price-original-strike">${origTxt}</span>`;
+                    }
                 } else {
                     priceDisplay = maxPrice > minPrice
                         ? formatSingleCurrency(minPrice, getCurrencyPrimary()) + ' - ' + formatSingleCurrency(maxPrice, getCurrencyPrimary())
@@ -3873,7 +3879,7 @@
                             <div class="item-name">${item.name} – ${item.label}</div>
                             <div class="item-detail">
                                 <span class="price-badge">${formatPrice(item.price)} / unité</span>
-                                ${Number(item.originalPrice) > Number(item.price) ? `<span class="price-original-strike" style="font-size:0.65rem;">${formatPrice(item.originalPrice)}</span>` : ''}
+                                ${Number(item.originalPrice) > Number(item.price) ? ` - <span class="price-original-strike" style="font-size:0.65rem;">${formatPrice(item.originalPrice)}</span>` : ''}
                                 <span class="weight-badge">Sous-total : ${formatPrice(item.price * item.quantity)}</span>
                             </div>
                         </div>
