@@ -365,6 +365,9 @@
         }
         .price-discounted { color: #e74c3c; font-weight: 800; }
         .price-original-strike { color: #95a5a6; text-decoration: line-through; font-weight: 600; font-size: 0.85em; }
+        /* Fourchette promo : 2 lignes (remisé / barré) alignées, chaque prix barré par SON trait */
+        .price-line { white-space: nowrap; }
+        .price-line > span { display: inline-block; min-width: 3.8em; }
         .weight-selector {
             display: flex;
             gap: 8px;
@@ -3587,8 +3590,10 @@
                         ? formatSingleCurrency(dMin, getCurrencyPrimary()) + ' - ' + formatSingleCurrency(dMax, getCurrencyPrimary())
                         : formatSingleCurrency(dMin, getCurrencyPrimary());
                     if (maxPrice > minPrice) {
-                        // Produit AVEC variantes : prix barré EN DESSOUS du prix remisé
-                        priceDisplay = `<span class="price-discounted">${discTxt}</span><br><span class="price-original-strike">${origTxt}</span>`;
+                        // Produit AVEC variantes : ligne du dessous ALIGNÉE, chaque prix barré par son propre trait
+                        const cur = getCurrencyPrimary();
+                        priceDisplay = `<span class="price-line"><span class="price-discounted">${formatSingleCurrency(dMin, cur)}</span> - <span class="price-discounted">${formatSingleCurrency(dMax, cur)}</span></span><br>` +
+                            `<span class="price-line"><span class="price-original-strike">${formatSingleCurrency(minPrice, cur)}</span> - <span class="price-original-strike">${formatSingleCurrency(maxPrice, cur)}</span></span>`;
                     } else {
                         // Produit UNIQUE (sans variante) : prix barré sur la MÊME ligne, séparé par un tiret
                         priceDisplay = `<span class="price-discounted">${discTxt}</span> - <span class="price-original-strike">${origTxt}</span>`;
