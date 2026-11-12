@@ -265,9 +265,12 @@
             .product-filter-bar .filter-group:first-child {
                 flex: 1.5 1 0;
             }
-            .product-filter-bar .filter-group:nth-child(2),
-            .product-filter-bar .filter-group:nth-child(3) {
+            .product-filter-bar .filter-group {
                 flex: 1 1 0;
+            }
+            .product-filter-bar .filter-apply-btn,
+            .product-filter-bar .filter-reset-btn {
+                flex: 0 0 auto;
             }
             .product-filter-bar .filter-group label { font-size: 0.6rem; }
             .product-filter-bar .filter-group select,
@@ -989,6 +992,7 @@
                         <option value="">Tous</option>
                     </select>
                 </div>
+                <button id="applyFilterBtn" class="filter-apply-btn"><i class="fas fa-filter"></i> Filtrer</button>
                 <div class="filter-group">
                     <label>Prix min</label>
                     <input type="number" id="filterMinPrice" placeholder="0" min="0" />
@@ -997,7 +1001,6 @@
                     <label>Prix max</label>
                     <input type="number" id="filterMaxPrice" placeholder="Max" min="0" />
                 </div>
-                <button id="applyFilterBtn" class="filter-apply-btn"><i class="fas fa-filter"></i> Filtrer</button>
                 <button id="resetFilterBtn" class="filter-reset-btn"><i class="fas fa-times"></i> Réinitialiser</button>
             </div>
             <div class="product-grid" id="productGrid">
